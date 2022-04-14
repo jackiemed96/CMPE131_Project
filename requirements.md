@@ -1,23 +1,23 @@
 ## Functional Requirements
-1. requirement
-2. requirement
-3. requirement
-4. requirement
-5. requirement
-6. requirement
-7. requirement
-8. requirement
-9. requirement
-10. requirement
-11. requirement
-12. requirement
+1. Login //Chris
+2. Logout //Chris
+3. Create new account //Josh
+4. delete account //Josh
+5. Add to cart  //Hieu
+6. Buy items  //Jackie
+7. Splash page //Jackie
+8. User profiles //Chris
+9. User ratings //Hieu
+10. Add item to seller store //Josh
+11. Find items  //Hieu
+12. Add pictures for items //Jackie
 ## Non-functional Requirements
-1. non-functional
-2. non-functional
-3. non-functional
-4. non-functional
+1. Only expected to work on Firefox
+2. Multilingual support
+3. Transactions are secure
+4. The website will respond to the users within 1 second
 ## Use Cases
-1. Add to cart (Should match functional requirement name)
+1. Use Case Name (should match functional requirement name)
 - **Pre-condition:** <can be a list or short description> Lorem ipsum dolor sit 
 amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore 
 magna aliqua.
