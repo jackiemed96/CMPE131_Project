@@ -51,4 +51,26 @@ to describe multiple issues that may arise>
   3. ...
 2. Use Case Name (Should match functional requirement name)
    ...
+3. Add item to seller store
+   **Pre-condition:** User must be logged in
+   
+   **Trigger:** Customer selects " add items to shop" option
 
+   **Primary Sequence:** 
+   1:System allows user to place item into shop
+   2:Customer adds description of item 
+   3:Customer sets price of item
+   4:System lists item on website for sale
+   5:Customer logs out
+
+   **Alternate Sequence:**
+   2.Customer sells illegal item
+      a.System displays warning message to customer
+      b.System flags customer
+
+   **Post-condition:** 
+   -Customer's item is listed in the shop
+   -Customer receives money when item is bought
+    OR
+   -Customer fails to list item on shop
+   -System doesn't update and shop remains the same
