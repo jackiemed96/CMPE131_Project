@@ -1,8 +1,3 @@
-
-Page
-1
-of 2
-## <remove all of the example text and notes in < > such as this one>
 ## Functional Requirements
 1. requirement
 2. requirement
@@ -22,7 +17,7 @@ of 2
 3. non-functional
 4. non-functional
 ## Use Cases
-1. Use Case Name (Should match functional requirement name)
+1. Add to cart (Should match functional requirement name)
 - **Pre-condition:** <can be a list or short description> Lorem ipsum dolor sit 
 amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore 
 magna aliqua.
