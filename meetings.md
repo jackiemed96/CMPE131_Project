@@ -1,18 +1,8 @@
-
-## Instructions
-- Delete this block before adding to your repository. 
-- Delete any instructions you see below they will be within < >
-  
-- This schedule should reflect the meetings from the start of the project until the
-end of the semester.
-- Write at least 1 meeting per week until the end of the semester
-  
 ## Meetings
-### 2022-04-15 at 13:30
-<meeting template would go here>
-<only fill in template once you had the meeting>
-<see example on the last date>
-<use date format YYYY-MM-DD at HH:MM>
+### 2022-04-13 at 16:00
+- Hieu, Jaqueline, Viet-Joshua, and Christopher attended the meeting.
+- We figured out which requirements and use cases each of us are going to implement and fill out.
+
 ### 2022-04-22 at 10:30
 <meeting template would go here>
 <only fill in template once you had the meeting>

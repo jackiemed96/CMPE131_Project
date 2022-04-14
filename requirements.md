@@ -1,7 +1,3 @@
-
-Page
-1
-of 2
 ## Functional Requirements
 1. Login //Chris
 2. Logout //Chris
