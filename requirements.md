@@ -19,11 +19,11 @@
 ## Use Cases
 1. Buy items
 - **Pre-condition:** 
-        - Having an account
-        - Being logged in
-        - Finding the desired item
+  1. Having an account
+  2. Being logged in
+  3. Finding the desired item
 - **Trigger:** 
-        - Customer clicks 'buy item' button
+  1. Customer clicks 'buy item' button
 - **Primary Sequence:**
   1. Customer logs into account
   2. Customer searches for item
