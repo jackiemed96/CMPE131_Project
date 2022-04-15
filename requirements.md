@@ -17,38 +17,41 @@
 3. Transactions are secure
 4. The website will respond to the users within 1 second
 ## Use Cases
-1. Use Case Name (should match functional requirement name)
-- **Pre-condition:** <can be a list or short description> Lorem ipsum dolor sit 
-amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore 
-magna aliqua.
-- **Trigger:** <can be a list or short description> Ut enim ad minim veniam, quis 
-nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea 
-commodi consequatur. 
+1. User Profiles
+- **Pre-condition:** <can be a list or short description> The user is logged in. The user is on their home page.
+- **Trigger:** <can be a list or short description> The user has moved from their home page to the profile viewer. 
 - **Primary Sequence:**
   
-  1. Ut enim ad minim veniam, quis nostrum e
-  2. Et sequi incidunt 
-  3. Quis aute iure reprehenderit
-  4. ... 
-  5. ...
-  6. ...
-  7. ...
-  8. ...
-  9. ...
-  10. <Try to stick to a max of 10 steps>
-- **Primary Postconditions:** <can be a list or short description> 
+  1. Entering their home page.
+  2. Pressing the profile button.
+
+- **Primary Postconditions:** <can be a list or short description> The user is somewhere in the website (either the shopping viewr or any other page).
 - **Alternate Sequence:** <you can have more than one alternate sequence to 
 describe multiple issues that may arise>
   
-  1. Ut enim ad minim veniam, quis nostrum e
-  2. Ut enim ad minim veniam, quis nostrum e
-  3. ...
+  1. They are any place in the site whilst logged in.
+  2. Select drop down menue in the upper right to select profile.
+
+  
+  
+  2. Add item to seller store
+- **Pre-condition:** <can be a list or short description> User should be logged in. 
+- **Trigger:** <can be a list or short description> The user has moved from a page to the listing maker. 
+- **Primary Sequence:**
+  
+  1. Entering their home page.
+  2. Pressing the make a listing button.
+
+- **Primary Postconditions:** <can be a list or short description> The user is in their profile page.
+- **Alternate Sequence:** <you can have more than one alternate sequence to 
+describe multiple issues that may arise>
+  
+  1. Hover over the drop down menue in the upper right.
+  2. Select the make a listing option.
+
 - **Alternate Sequence <optional>:** <you can have more than one alternate sequence
 to describe multiple issues that may arise>
   
-  1. Ut enim ad minim veniam, quis nostrum e
-  2. Ut enim ad minim veniam, quis nostrum e
-  3. ...
-2. Use Case Name (Should match functional requirement name)
-   ...
+  1. The user is in the shop.
+  2. The user can select to list their own item which is similar.
 
