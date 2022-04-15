@@ -17,7 +17,27 @@
 3. Transactions are secure
 4. The website will respond to the users within 1 second
 ## Use Cases
-5. Add to cart
+=======
+1. Buy items
+- **Pre-condition:** 
+  1. Having an account
+  2. Being logged in
+  3. Finding the desired item
+- **Trigger:** 
+  1. Customer clicks 'buy item' button
+- **Primary Sequence:**
+  1. Customer logs into account
+  2. Customer searches for item
+  3. Customer adds desired item to their cart
+  4. Customer clicks the 'buy item' button
+- **Primary Postconditions:**
+        - Customer has bought an item       
+- **Alternate Sequence:**
+  1. Customer searches for item that doesn't exist
+  2. Customer is told that item is not in stock
+  3. Customer can search for a different item
+
+2. Add to cart
 - **Pre-condition:** The user must be logged in and be on the item's page.
 - **Trigger:** The user must press the button "Add to cart".
 - **Primary Sequence:**
@@ -39,7 +59,7 @@
   2. The user selects "Add to cart" on an item's page.
   3. The website displays an error message prompting the user to log in.
 
-9. User ratings
+3. User ratings
 - **Pre-condition:** The user must be logged in and be on an item's page.
 - **Trigger:** The user must press the button "Rate this item".
 - **Primary Sequence:**
@@ -57,7 +77,6 @@
   2. The item's rating does not change because the user is not logged in.
 
 - **Alternate Sequence:**
-
   1. The user is not logged in.
   2. The user selects "Rate this item" on an item's page.
   3. The website displays an error message prompting the user to log in.
