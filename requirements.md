@@ -30,6 +30,9 @@
   2. Customer searches for item
   3. Customer adds desired item to their cart
   4. Customer clicks the 'buy item' button
+  5. Customer is prompted for their shipping information
+  6. Customer is prompted for their payment information
+  7. Customer clicks "buy" button
 - **Primary Postconditions:**
         - Customer has bought an item       
 - **Alternate Sequence:**
