@@ -31,8 +31,6 @@ describe multiple issues that may arise>
   
   1. They are any place in the site whilst logged in.
   2. Select drop down menue in the upper right to select profile.
-
-  
   
   2. Add item to seller store
 - **Pre-condition:** <can be a list or short description> User should be logged in. 
@@ -55,3 +53,68 @@ to describe multiple issues that may arise>
   1. The user is in the shop.
   2. The user can select to list their own item which is similar.
 
+2. Buy items
+- **Pre-condition:** 
+  1. Having an account
+  2. Being logged in
+  3. Finding the desired item
+- **Trigger:** 
+  1. Customer clicks 'buy item' button
+- **Primary Sequence:**
+  1. Customer logs into account
+  2. Customer searches for item
+  3. Customer adds desired item to their cart
+  4. Customer clicks the 'buy item' button
+  5. Customer is prompted for their shipping information
+  6. Customer is prompted for their payment information
+  7. Customer clicks "buy" button
+- **Primary Postconditions:**
+        - Customer has bought an item       
+- **Alternate Sequence:**
+  1. Customer searches for item that doesn't exist
+  2. Customer is told that item is not in stock
+  3. Customer can search for a different item
+
+3. Add to cart
+- **Pre-condition:** The user must be logged in and be on the item's page.
+- **Trigger:** The user must press the button "Add to cart".
+- **Primary Sequence:**
+  
+  1. The user is logged in.
+  2. The user is on the page with their desired item.
+  3. The user selects the "Add to cart" button on that page.
+  4. The item will be sent to the user's cart.
+  5. The website displays the message "Add to cart successfully".
+
+- **Primary Postconditions:** 
+
+  1. The item is added to the user's cart.
+  2. The item is not added if the user is not logged in.
+
+- **Alternate Sequence:**
+  
+  1. The user is not logged in.
+  2. The user selects "Add to cart" on an item's page.
+  3. The website displays an error message prompting the user to log in.
+
+4. User ratings
+- **Pre-condition:** The user must be logged in and be on an item's page.
+- **Trigger:** The user must press the button "Rate this item".
+- **Primary Sequence:**
+  
+  1. The user is logged in.
+  2. The user is on the page of an item.
+  3. The user selects the "Rate this item" button on that page.
+  4. The website displays a message promping the user to input a number rating.
+  5. The user inputs a number.
+  6. The website displays the message "Rating received"
+
+- **Primary Postconditions:**
+
+  1. The item has received a new rating and changes its rating accordingly.
+  2. The item's rating does not change because the user is not logged in.
+
+- **Alternate Sequence:**
+  1. The user is not logged in.
+  2. The user selects "Rate this item" on an item's page.
+  3. The website displays an error message prompting the user to log in.
