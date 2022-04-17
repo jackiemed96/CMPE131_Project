@@ -18,42 +18,39 @@
 4. The website will respond to the users within 1 second
 ## Use Cases
 1. User Profiles
-- **Pre-condition:** <can be a list or short description> The user is logged in. The user is on their home page.
-- **Trigger:** <can be a list or short description> The user has moved from their home page to the profile viewer. 
+- **Pre-condition:** The user is logged in. The user is on their home page.
+- **Trigger:** The user has moved from their home page to the profile viewer. 
 - **Primary Sequence:**
   
   1. Entering their home page.
   2. Pressing the profile button.
 
-- **Primary Postconditions:** <can be a list or short description> The user is somewhere in the website (either the shopping viewr or any other page).
-- **Alternate Sequence:** <you can have more than one alternate sequence to 
-describe multiple issues that may arise>
+- **Primary Postconditions:** The user is somewhere in the website (either the shopping viewr or any other page).
+- **Alternate Sequence:** 
   
   1. They are any place in the site whilst logged in.
   2. Select drop down menue in the upper right to select profile.
   
-  2. Add item to seller store
-- **Pre-condition:** <can be a list or short description> User should be logged in. 
-- **Trigger:** <can be a list or short description> The user has moved from a page to the listing maker. 
+2. Add item to seller store
+- **Pre-condition:**  User should be logged in. 
+- **Trigger:** The user has moved from a page to the listing maker. 
 - **Primary Sequence:**
   
   1. Entering their home page.
   2. Pressing the make a listing button.
 
-- **Primary Postconditions:** <can be a list or short description> The user is in their profile page.
-- **Alternate Sequence:** <you can have more than one alternate sequence to 
-describe multiple issues that may arise>
+- **Primary Postconditions:** The user is in their profile page.
+- **Alternate Sequence:**
   
   1. Hover over the drop down menue in the upper right.
   2. Select the make a listing option.
 
-- **Alternate Sequence <optional>:** <you can have more than one alternate sequence
-to describe multiple issues that may arise>
+- **Alternate Sequence:**
   
   1. The user is in the shop.
   2. The user can select to list their own item which is similar.
 
-2. Buy items
+3. Buy items
 - **Pre-condition:** 
   1. Having an account
   2. Being logged in
@@ -75,7 +72,7 @@ to describe multiple issues that may arise>
   2. Customer is told that item is not in stock
   3. Customer can search for a different item
 
-3. Add to cart
+4. Add to cart
 - **Pre-condition:** The user must be logged in and be on the item's page.
 - **Trigger:** The user must press the button "Add to cart".
 - **Primary Sequence:**
@@ -97,7 +94,7 @@ to describe multiple issues that may arise>
   2. The user selects "Add to cart" on an item's page.
   3. The website displays an error message prompting the user to log in.
 
-4. User ratings
+5. User ratings
 - **Pre-condition:** The user must be logged in and be on an item's page.
 - **Trigger:** The user must press the button "Rate this item".
 - **Primary Sequence:**
