@@ -118,3 +118,23 @@ to describe multiple issues that may arise>
   1. The user is not logged in.
   2. The user selects "Rate this item" on an item's page.
   3. The website displays an error message prompting the user to log in.
+
+5. Add pictures for items
+  - **Pre-condition:** The user must be logged in and have an item listed in the store.
+  - **Trigger:** The user must press the button "Add pictures to items".
+  - **Primary Sequence:**
+    1. The user is logged in.
+    2. The user "Adds item to seller store".
+    3. The website updates the item to the store.
+    4. The user selects "Add picutre for items". 
+    5. The website allows the user to input a picture for different items.
+    6. The website displayes picutres for the inputted items.
+  
+  -**Primary Postconditions:**
+    1. The item has a new picture.
+    2. The item remains listed without a picutre because the user is not logged in.
+  
+  -**Alternate Sequence:** 
+    1. The user is not logged in.
+    2. The user selects "Add pictures to items".
+    3. The system displays an error message asking the user to log in.
