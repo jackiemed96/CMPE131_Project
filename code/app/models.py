@@ -19,16 +19,18 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return f'<User {self.username}: {self.items}>'
+        return f'''<User {self.username} sells {self.items}.
+                    Has in cart: {self.cartitems}>'''
 
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     itemname = db.Column(db.String(256))
-    seller = db.Column(db.Integer, db.ForeignKey('user.username'))
+    cartholder = db.Column(db.Integer, db.ForeignKey('user.username'))
     price = db.Column(db.Integer)
     
     def __repr__(self):
-        return f'<{self.seller}, {self.itemname}: {self.price}>'
+        return f'''<Cart Holder: {self.cartholder}, Item: {self.itemname}, 
+                    Price: {self.price}>'''
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -37,7 +39,8 @@ class Item(db.Model):
     price = db.Column(db.Integer)
     
     def __repr__(self):
-        return f'<{self.seller}, {self.itemname}: {self.price}>'
+        return f'''<Seller: {self.seller}, Item: {self.itemname},
+                    Price: {self.price}>'''
 
 @login.user_loader
 def load_user(id):
