@@ -6,7 +6,7 @@ from flask_login import logout_user
 from flask_login import current_user
 from flask_login import login_required
 
-
+@myapp_obj.route('/')
 @myapp_obj.route('/login')
 def login():
     # create form
@@ -23,3 +23,4 @@ def login():
 @myapp_obj.route('/profile')
 def profile():
     return ''
+

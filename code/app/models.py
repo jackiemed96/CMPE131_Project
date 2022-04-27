@@ -9,7 +9,8 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64))
     email = db.Column(db.String(64))
     password_hash = db.Column(db.String(128))
-    posts = db.relationship('Post')
+    items = db.relationship('Item')
+    cartitems = db.relationship('CartItem')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -18,17 +19,27 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return f'<User {self.username} {self.email}>'
+        return f'<User {self.username}: {self.items}>'
 
-class Post(db.Model):
+class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(256))
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    itemname = db.Column(db.String(256))
+    seller = db.Column(db.Integer, db.ForeignKey('user.username'))
+    price = db.Column(db.Integer)
+    
     def __repr__(self):
-        return f'<{self.user_id}, {self.timestamp}: {self.body}>'
+        return f'<{self.seller}, {self.itemname}: {self.price}>'
+
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    itemname = db.Column(db.String(256))
+    seller = db.Column(db.String(64), db.ForeignKey('user.username'))
+    price = db.Column(db.Integer)
+    
+    def __repr__(self):
+        return f'<{self.seller}, {self.itemname}: {self.price}>'
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
