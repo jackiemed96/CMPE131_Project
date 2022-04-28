@@ -18,3 +18,8 @@ help.>
 for that requirement.>
 - Summarize group progress
 
+### 2022-04-27 at 4:00
+    - Hieu, Jaqueline, Viet-Joshua, and Christopher attended the meeting.
+    - Discussed the gnatt chart and general schedule for the tasks to be completed.
+    - Affirmed comfortability with the tasks assigned.
+    - Determined that the Search function and add image function were possible drop features if time becomes an issue.
