@@ -1,0 +1,21 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<form action="" method="post" novalidate>
+		{{ additemform.hidden_tag() }}
+		<p>
+		{{ additemform.itemname.label }}<br>
+		{{ additemform.itemname(size=64) }}
+		</p>
+		<p>
+		{{ additemform.price.label }}<br>
+                {{ additemform.price(size=8) }}
+                </p>
+		<p>
+                {{ additemform.sellername.label }}<br>
+                {{ additemform.sellername(size=32) }}
+                </p>
+		<p>{{ additemform.addbutton() }}</p>
+	<body>
+</html>
