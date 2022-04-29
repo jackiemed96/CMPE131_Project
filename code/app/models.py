@@ -41,7 +41,7 @@ class Item(db.Model):
 
     def __repr__(self):
         return f'''<Seller: {self.seller}, Item: {self.itemname},
-                    Price: {self.price}>'''
+                    Price: {self.price}>, Rating: {self.rating}'''
 
 @login.user_loader
 def load_user(id):
