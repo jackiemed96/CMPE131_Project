@@ -2,20 +2,21 @@
 	<head>
 	</head>
 	<body>
-		<form action="" method="post" novalidate>
-		{{ additemform.hidden_tag() }}
-		<p>
-		{{ additemform.itemname.label }}<br>
-		{{ additemform.itemname(size=64) }}
-		</p>
-		<p>
-		{{ additemform.price.label }}<br>
-                {{ additemform.price(size=8) }}
-                </p>
-		<p>
-                {{ additemform.sellername.label }}<br>
-                {{ additemform.sellername(size=32) }}
-                </p>
-		<p>{{ additemform.addbutton() }}</p>
+		<form action="#" method="post">
+			<p>Seller Name:</p>
+			<p><input type="text" name="seller" /></p>
+			<p>Item Name:</p>
+			<p><input type="text" name="item" /></p>
+			<p>Price:</p>
+			<p><input type="number" name="price" /></p>
+			<p><input type="submit" name="add_to_store" value="Add to store" /></p>
+		</form>
+		<h1> Items: </h1>
+		<br>
+		<ul>
+		{% for item in items %}
+		<li>{{ item }}</li>
+		{% endfor %}
+		</ul>
 	<body>
 </html>

@@ -44,7 +44,16 @@ def profile():
     return ''
 
 
-
-@myapp_obj.route('/additem')
+@myapp_obj.route('/items', methods=['GET', 'POST'])
 def addItem():
-    
+    db.create_all()
+    additemform = AddItemForm()
+    if request.method == "POST":
+        if request.form["add_to_store"] == "Add to store":
+            newItem = Item(sellername=request.form["seller"], itemname=request.form["item"], price=request.form["price"])
+            db.session.add(newItem)
+            db.session.commit()
+            return render_template('itemspage.html', additemform=additemform, items=Item.query.all())
+    return render_template('itemspage.html', additemform=additemform, items=Item.query.all())
+
+
