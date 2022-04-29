@@ -1,10 +1,16 @@
 from app import myapp_obj
-from flask import render_template, flash
+from flask import render_template, flash, Flask, request, redirect, url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import NumberRange
+from flask_login import login_user, logout_user, current_user, login_required
 
-from flask_login import login_user
-from flask_login import logout_user
-from flask_login import current_user
-from flask_login import login_required
+class AddToCartButton(FlaskForm):
+    cartsubmit = SubmitField('Add to cart')
+
+class RateItemButton(FlaskForm):
+    rating = IntegerField('Rating (1-10):', validators=[NumberRange(min=1, max=10)])
+    ratingsubmit = SubmitField('Rate') 
 
 @myapp_obj.route('/')
 @myapp_obj.route('/login')
