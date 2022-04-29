@@ -24,3 +24,8 @@ def login():
 def profile():
     return ''
 
+
+
+@myapp_obj.route('/additem')
+def addItem():
+    
