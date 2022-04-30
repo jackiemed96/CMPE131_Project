@@ -25,11 +25,11 @@ class User(UserMixin, db.Model):
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     itemname = db.Column(db.String(256))
-    cartholder = db.Column(db.Integer, db.ForeignKey('user.username'))
+    seller = db.Column(db.String(64), db.ForeignKey('user.username'))
     price = db.Column(db.Integer)
     
     def __repr__(self):
-        return f'''<Cart Holder: {self.cartholder}, Item: {self.itemname}, 
+        return f'''<Seller: {self.seller}, Item: {self.itemname}, 
                     Price: {self.price}>'''
 
 class Item(db.Model):
@@ -41,7 +41,7 @@ class Item(db.Model):
 
     def __repr__(self):
         return f'''<Seller: {self.seller}, Item: {self.itemname},
-                    Price: {self.price}>'''
+                    Price: {self.price}>, Rating: {self.rating}'''
 
 @login.user_loader
 def load_user(id):
