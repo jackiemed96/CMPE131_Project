@@ -1,10 +1,10 @@
-from app import myapp_obj
+from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import NumberRange
 from flask_login import login_user, logout_user, current_user, login_required
-
+from app.models import User, Item, CartItem
 
 @myapp_obj.route('/')
 @myapp_obj.route('/login')
@@ -18,7 +18,7 @@ def login():
         # login_user(user)
     return 'home'
 
-@app.route('/register', methods =['GET', 'POST'])
+@myapp_obj.route('/register', methods =['GET', 'POST'])
 def register():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
@@ -47,13 +47,12 @@ def profile():
 @myapp_obj.route('/items', methods=['GET', 'POST'])
 def addItem():
     db.create_all()
-    additemform = AddItemForm()
     if request.method == "POST":
         if request.form["add_to_store"] == "Add to store":
-            newItem = Item(sellername=request.form["seller"], itemname=request.form["item"], price=request.form["price"])
+            newItem = Item(seller=request.form["seller"], itemname=request.form["item"], price=request.form["price"])
             db.session.add(newItem)
             db.session.commit()
-            return render_template('itemspage.html', additemform=additemform, items=Item.query.all())
-    return render_template('itemspage.html', additemform=additemform, items=Item.query.all())
+            return render_template('itemspage.html', items=Item.query.all())
+    return render_template('itemspage.html', items=Item.query.all())
 
 
