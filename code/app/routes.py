@@ -1,10 +1,12 @@
+from this import d
 from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import NumberRange
+from wtforms.validators import NumberRange, DataRequired
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import User, Item, CartItem
+from app.models import User, Item, CartItem, CheckoutInfo
+from sqlalchemy import func
 
 @myapp_obj.route('/')
 @myapp_obj.route('/login')
@@ -67,4 +69,21 @@ def addToCart(item_name):
 @myapp_obj.route('/cart/')
 def cart():
     return render_template('cart.html', cart=CartItem.query.all())
->>>>>>> fbdb37b34f849cd66047f412826109e57589ce98
+
+@myapp_obj.route('/checkout', methods = ["GET", "POST"])
+def buyItems():
+    db.create_all()
+    if request.method == "POST":
+        if request.form["submit"] == "Buy":
+
+            total_price_statement = CartItem.query.with_entities(func.sum(CartItem.price))
+
+            total_price = total_price_statement.scalar()
+
+            info = CheckoutInfo(address=request.form["address"], ccNumber = request.form["number"])
+            db.session.add(info)
+            db.session.commit()
+
+            return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = total_price)
+
+    return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = (CartItem.query.with_entities(func.sum(CartItem.price))).scalar())
