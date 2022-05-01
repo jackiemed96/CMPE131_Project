@@ -20,22 +20,18 @@ def login():
 
 @myapp_obj.route('/register', methods =['GET', 'POST'])
 def register():
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
-        db = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        db.execute('SELECT * FROM accounts WHERE username = % s', (username, ))
-        if db.fetchone()[0]:
-            msg = 'Account already exists !'
-        else:
-            u = User(username, password, email)
-            db.session.add(u)
-            db.session.commit()
-            msg = 'You have successfully registered !'
-    elif request.method == 'POST':
-        msg = 'Please fill out the form !'
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = generate_hash(form.password.data, method = 'sha256')
+        username = form.username.data
+        password = hashed_password
+        email = form.email.data
+        
+        u = User(username = username, password = password, email=email)
+        db.session.add(u)
+        db.session.commit
+        flash("Registration was successful")
+        return redirect(url_for('Login'))
     return render_template('register.html', msg = msg)
 
 @login_required
