@@ -1,6 +1,9 @@
 from app import db
 from app import login
 from flask_login import UserMixin
+from flask_wtf import FlaskForm
+from wtfforms import StringField, PasswordField, BooleanField
+from wtfsforms.validators import InputRequired, Email, Length
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -22,6 +25,11 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'''<Seller: {self.username}, Item: {self.items},
                     Cart: {self.cartitems}>'''
+    
+class RegistrationForm(FlaskForm)
+    email = StringField('email', validators = [InputRequired()])
+    username = StringField('username', validators = [InputRequired()])
+    password = PassowrdField('password', validators=[InputRequired()])
 
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
