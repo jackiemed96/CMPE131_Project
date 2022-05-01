@@ -31,6 +31,10 @@ class CartItem(db.Model):
     def __repr__(self):
         return f'''<Seller: {self.seller}, Item: {self.itemname}, 
                     Price: {self.price}>'''
+class RegistrationForm(FlaskForm):
+    email = StringField('email', validators=[InputRequired()])
+    username = StringField('username', validators=[InputRequired()])
+    password= PasswordField('password', validators=[InputRequired()])
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
