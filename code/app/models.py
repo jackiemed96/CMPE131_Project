@@ -48,6 +48,13 @@ class Item(db.Model):
     seller = db.Column(db.String(64), db.ForeignKey('user.username'))
     price = db.Column(db.Integer)
     rating = db.Column(db.Integer)
+    numberofratings = db.Column(db.Integer)
+    sumofratings = db.Column(db.Integer)
+
+    def updateRating(self, userrating):
+        self.numberofratings = self.numberofratings + 1
+        self.sumofratings = self.sumofratings + userrating
+        self.rating = self.sumofratings / self.numberofratings
 
     def __repr__(self):
         return f'''<Seller: {self.seller}, Item: {self.itemname},
