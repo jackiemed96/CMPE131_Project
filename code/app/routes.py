@@ -1,23 +1,19 @@
-from this import d
 from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import NumberRange, DataRequired
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm
+from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm
 from sqlalchemy import func
 
 @myapp_obj.route('/login', methods = ["GET", "POST"])
 def login():
-    # create form
-    # if form inputs are valid
-        # search database for username
-        # user = User.query.filter_by(...)
-        # check the password
-        # if password matches
-        # login_user(user)
-    return 'home'
+    form = LoginForm()
+    if form.validate_on_submit ():
+        flash('Login requested for user {}, remember_me={}' .format(form.username.data, form.remember_me.data))
+        return redirect('/index')
+    return render_template('login.html', title='Sign In', form=form)
 
 @myapp_obj.route('/register', methods =['GET', 'POST'])
 def register():
@@ -33,7 +29,7 @@ def register():
         db.session.commit
         flash("Registration was successful")
         return redirect(url_for('Login'))
-    return render_template('register.html') #MSG IS BEING REMOVED
+    return render_template('register.html')
 
 @login_required
 @myapp_obj.route('/profile')

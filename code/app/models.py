@@ -2,8 +2,8 @@ from app import db
 from app import login
 from flask_login import UserMixin
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField
-from wtforms.validators import InputRequired, Email, Length
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import InputRequired, Email, Length, DataRequired
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -61,6 +61,12 @@ class CheckoutInfo(db.Model):
 
     def __repr__(self):
         return f'''Buyer Name: {self.buyer}, Shipping address: {self.address}'''
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me')
+    submit = SubmitField('Sign In')
 
 @login.user_loader
 def load_user(id):
