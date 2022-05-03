@@ -1,5 +1,5 @@
-from app import db
-from app import login
+from re import I
+from app import db, login
 from flask_login import UserMixin
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
@@ -25,7 +25,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'''<Seller: {self.username}, Item: {self.items},
                     Cart: {self.cartitems}>'''
-    
+
 class RegistrationForm(FlaskForm):
     email = StringField('email', validators = [InputRequired()])
     username = StringField('username', validators = [InputRequired()])
