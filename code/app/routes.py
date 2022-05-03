@@ -1,12 +1,9 @@
 from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import NumberRange, DataRequired
 from flask_login import login_user, logout_user, current_user, login_required
 from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm
-from sqlalchemy import func
 from werkzeug.security import generate_password_hash
+from sqlalchemy import func
 
 @myapp_obj.route('/login', methods = ["GET", "POST"])
 def login():
