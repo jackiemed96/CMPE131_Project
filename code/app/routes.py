@@ -6,30 +6,33 @@ from wtforms.validators import NumberRange, DataRequired
 from flask_login import login_user, logout_user, current_user, login_required
 from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm
 from sqlalchemy import func
+from werkzeug.security import generate_password_hash
 
 @myapp_obj.route('/login', methods = ["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit ():
         flash('Login requested for user {}, remember_me={}' .format(form.username.data, form.remember_me.data))
-        return redirect('/index')
+        return redirect('/profile')
     return render_template('login.html', title='Sign In', form=form)
 
 @myapp_obj.route('/register', methods =['GET', 'POST'])
 def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = generate_hash(form.password.data, method = 'sha256')
-        username = form.username.data
-        password = hashed_password
-        email = form.email.data
+    db.create_all()
+    form = RegistrationForm(request.form)
+    if request.method == "POST":
+        if form.validate_on_submit():
+            hashed_password = generate_password_hash(form.password.data, method = 'sha256')
+            username = form.username.data
+            password = hashed_password
+            email = form.email.data
 
-        u = User(username = username, password = password, email=email)
-        db.session.add(u)
-        db.session.commit
-        flash("Registration was successful")
-        return redirect(url_for('Login'))
-    return render_template('register.html')
+            u = User(username = username, password_hash = password, email=email)
+            db.session.add(u)
+            db.session.commit()
+            flash("Registration was successful")
+            return redirect(url_for('login'))
+    return render_template('register.html', form = form)
 
 @login_required
 @myapp_obj.route('/profile')
