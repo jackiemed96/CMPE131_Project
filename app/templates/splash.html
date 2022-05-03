@@ -1,0 +1,15 @@
+<html>
+    <center> <h2> Welcome to the CMPE131 Shop! </h2> </center>
+    <center> <p> Various goods and items are available on our website</p> </center>
+    <center> <p> Please register and create an account or log in if you already have one!</p></center>
+
+    <center>
+        <form action = "{{url_for('login')}}" method = "POST">
+            <p> <input type = submit value = "Login"> </p>
+        </form>
+        
+        <form action = "{{url_for('register')}}" method = "POST">
+            <p> <input type = submit value = "Register"> </p>
+        </form>
+    </center>
+</html>
