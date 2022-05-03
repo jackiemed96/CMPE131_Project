@@ -1,18 +1,21 @@
+from flask_login.utils import _get_user
 from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import NumberRange, DataRequired
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm
+from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm, ProfileFrom
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash
+
 
 @myapp_obj.route('/login', methods = ["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit ():
-        flash('Login requested for user {}, remember_me={}' .format(form.username.data, form.remember_me.data))
+        #flash('Login requested for user {}, remember_me={}' .format(form.username.data, form.remember_me.data))
+        current_user.is_authenticated
         return redirect('/profile')
     return render_template('login.html', title='Sign In', form=form)
 
@@ -37,7 +40,8 @@ def register():
 @login_required
 @myapp_obj.route('/profile')
 def profile():
-    return ''
+    form = ProfileFrom()
+    return render_template('profile.html', username = current_user.get_id, form = form)
 
 
 @myapp_obj.route('/items', methods=['GET', 'POST'])
