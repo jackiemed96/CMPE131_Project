@@ -42,7 +42,7 @@ def addItem():
     db.create_all()
     if request.method == "POST":
         if request.form["add_to_store"] == "Add to store":
-            newItem = Item(seller=request.form["seller"], itemname=request.form["item"], price=request.form["price"])
+            newItem = Item(seller=request.form["seller"], itemname=request.form["item"], price=request.form["price"], rating=0, numberofratings=0, sumofratings=0)
             db.session.add(newItem)
             db.session.commit()
             return render_template('itemspage.html', items=Item.query.all())
@@ -57,9 +57,21 @@ def addToCart(item_name):
     db.session.commit()
     return render_template('cart.html', cart=CartItem.query.all())
 
+
 @myapp_obj.route('/cart/')
 def cart():
     return render_template('cart.html', cart=CartItem.query.all())
+
+
+@myapp_obj.route('/rate/', methods=['GET', 'POST'])
+def rateItem():
+    if request.method == "POST":
+        if request.form["add_rating"] == "Add rating":
+            item = Item.query.filter_by(itemname=request.form["item"]).first()
+            item.updateRating(int(request.form["rating"]))
+            db.session.commit()
+    return render_template('rate.html')
+
 
 @myapp_obj.route('/checkout', methods = ["GET", "POST"])
 def buyItems():
