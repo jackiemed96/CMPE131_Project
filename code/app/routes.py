@@ -48,7 +48,7 @@ def addItem():
             newItem = Item(seller=request.form["seller"], itemname=request.form["item"], price=request.form["price"], rating=0, numberofratings=0, sumofratings=0)
             db.session.add(newItem)
             db.session.commit()
-            return render_template('itemspage.html', items=Item.query.all())
+            return render_template('itemspage.html', items=Item.query.all()) 
     return render_template('itemspage.html', items=Item.query.all())
 
 
