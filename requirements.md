@@ -1,15 +1,15 @@
 ## Functional Requirements
 1. Login //Chris
 2. Logout //Chris
-3. Create new account //Josh
-4. delete account //Josh
+3. Create Account //Josh
+4. Delete Account //Josh
 5. Add to cart  //Hieu
-6. Buy items  //Jackie
-7. Splash page //Jackie
-8. User profiles //Chris
-9. User ratings //Hieu
+6. Buy Items  //Jackie
+7. Splash Page //Jackie
+8. User Profiles //Chris
+9. User Ratings //Hieu
 10. Add item to seller store //Josh
-11. Find items  //Hieu
+11. Find Items  //Hieu
 12. Add pictures for items //Jackie
 ## Non-functional Requirements
 1. Only expected to work on Firefox
