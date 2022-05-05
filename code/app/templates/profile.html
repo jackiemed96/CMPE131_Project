@@ -1,9 +1,9 @@
-﻿<html>
+<html>
 <head>
-    <title>{{username}}</title>
+    <title>{{current_user.name}}</title>
 </head>
 <body>
-    <h1> Hello there {{username}}'</h1>
+    <h1> Hello there {{current_user.name}}'</h1>
     {% extends "base.html" %}
 
     {% block content %}
@@ -12,8 +12,8 @@
             <a href="{{url_for('buyItems')}}">Sell your things here!</a>
             <a href="{{url_for('cart')}}">View your cart here!</a>
             <a href="{{url_for('rateItem')}}">Rate an item here!</a>
-            <!--<a href="{url_for('checkout')}}">Pay here!</a>-->
-            {{form.button()}}
+            <a href="{url_for('checkout')}}">Pay here!</a>
+            <a href="{{url_for('logout')}}" target="_blank"> <button>Sign out</button> </a>
         </p>
     </form>
     {% endblock %}

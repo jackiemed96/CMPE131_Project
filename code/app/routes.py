@@ -1,23 +1,21 @@
-from flask_login.utils import _get_user
 from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import NumberRange, DataRequired
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm, ProfileFrom
+from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm, ProfileForm
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash
 
-
 @myapp_obj.route('/login', methods = ["GET", "POST"])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit ():
-        #flash('Login requested for user {}, remember_me={}' .format(form.username.data, form.remember_me.data))
-        current_user.is_authenticated
-        return redirect('/profile')
-    return render_template('login.html', title='Sign In', form=form)
+	form = LoginForm()
+	if form.validate_on_submit ():
+		#load_user(user)
+		flash('Login requested for user {}, remember_me={}' .format(form.username.data, form.remember_me.data))
+		return redirect('/profile')
+	return render_template('login.html', title='Sign In', form=form)
 
 @myapp_obj.route('/register', methods =['GET', 'POST'])
 def register():
@@ -40,8 +38,13 @@ def register():
 @login_required
 @myapp_obj.route('/profile')
 def profile():
-    form = ProfileFrom()
-    return render_template('profile.html', username = current_user.get_id, form = form)
+	form = ProfileForm()
+	return render_template('profile.html', form = form)
+
+@myapp_obj.route('/logout')
+def logout():
+	form = LogoutForm()
+	return render_template('logout.html', form = form)
 
 
 @myapp_obj.route('/items', methods=['GET', 'POST'])
@@ -52,7 +55,7 @@ def addItem():
             newItem = Item(seller=request.form["seller"], itemname=request.form["item"], price=request.form["price"], rating=0, numberofratings=0, sumofratings=0)
             db.session.add(newItem)
             db.session.commit()
-            return render_template('itemspage.html', items=Item.query.all())
+            return render_template('itemspage.html', items=Item.query.all()) 
     return render_template('itemspage.html', items=Item.query.all())
 
 
