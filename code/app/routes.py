@@ -73,7 +73,7 @@ def rateItem():
     return render_template('rate.html')
 
 
-@myapp_obj.route('/checkout', methods = ["GET", "POST"])
+@myapp_obj.route('/checkout/', methods = ["GET", "POST"])
 def buyItems():
     db.create_all()
     if request.method == "POST":
@@ -88,7 +88,7 @@ def buyItems():
             db.session.commit()
 
             return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = total_price)
-
+    
     return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = (CartItem.query.with_entities(func.sum(CartItem.price))).scalar())
 
 
