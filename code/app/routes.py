@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import NumberRange, DataRequired
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm, ProfileForm
+from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm, ProfileForm, LogoutForm
 from sqlalchemy import func
 from werkzeug.security import generate_password_hash
 
@@ -13,7 +13,6 @@ def login():
 	form = LoginForm()
 	if form.validate_on_submit ():
 		#load_user(user)
-		flash('Login requested for user {}, remember_me={}' .format(form.username.data, form.remember_me.data))
 		return redirect('/profile')
 	return render_template('login.html', title='Sign In', form=form)
 
@@ -41,6 +40,7 @@ def profile():
 	form = ProfileForm()
 	return render_template('profile.html', form = form)
 
+@login_required
 @myapp_obj.route('/logout')
 def logout():
 	form = LogoutForm()
