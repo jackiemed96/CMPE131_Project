@@ -1,16 +1,26 @@
 from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import User, Item, CartItem, CheckoutInfo, RegistrationForm, LoginForm
+from app.models import User, Item, CartItem, CheckoutInfo
+from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm
 from werkzeug.security import generate_password_hash
-from sqlalchemy import func
+import sqlalchemy as sql
 
 @myapp_obj.route('/login', methods = ["GET", "POST"])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit ():
-        flash('Login requested for user {}, remember_me={}' .format(form.username.data, form.remember_me.data))
-        return redirect('/profile')
+    form = LoginForm(request.form)
+
+    if request.method == "POST":
+        if form.validate_on_submit ():
+            usersCheck = db.session.query(User).where(User.username == form['username'].data).all()
+            if len(usersCheck) == 0:
+                return redirect('/register')
+            else:
+                database_user = usersCheck[0]
+                user = User(username = database_user.username, id = int(database_user.id))
+                login_user(user)
+                return redirect('/profile')
+
     return render_template('login.html', title='Sign In', form=form)
 
 @myapp_obj.route('/register', methods =['GET', 'POST'])
@@ -34,7 +44,15 @@ def register():
 @login_required
 @myapp_obj.route('/profile')
 def profile():
-    return ''
+    form = ProfileForm()
+    return render_template('profile.html', form = form)
+
+@login_required
+@myapp_obj.route('/logout')
+def logout():
+    form = LogoutForm()
+    logout_user()
+    return render_template('logout.html', form = form)
 
 
 @myapp_obj.route('/items', methods=['GET', 'POST'])
@@ -79,17 +97,17 @@ def buyItems():
     if request.method == "POST":
         if request.form["submit"] == "Buy":
 
-            total_price_statement = CartItem.query.with_entities(func.sum(CartItem.price))
+            total_price_statement = CartItem.query.with_entities(sql.func.sum(CartItem.price))
 
             total_price = total_price_statement.scalar()
 
-            info = CheckoutInfo(address=request.form["address"], ccNumber = request.form["number"])
+            info = CheckoutInfo(address=request.form["address"], ccNumber = request.form["number"], buyer = current_user.username)
             db.session.add(info)
             db.session.commit()
 
             return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = total_price)
     
-    return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = (CartItem.query.with_entities(func.sum(CartItem.price))).scalar())
+    return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = (CartItem.query.with_entities(sql.func.sum(CartItem.price))).scalar())
 
 
 @myapp_obj.route('/', methods = ["GET", "POST"])
