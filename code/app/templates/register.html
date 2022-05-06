@@ -3,12 +3,27 @@
 		<meta charset="UTF-8">
 		<title> Register </title>			
 	</head>
+	<style>
+        body
+        {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 125%;
+
+            padding: 250px 0;
+            text-align: center;
+
+            color: black;
+            background-image: url("/static/register.jpg");
+            background-size: auto;
+            background-repeat: no-repeat;
+        }   
+    </style>
 	<body>
-		<div align="left">
-		<div align="left" class="border">
+		<div align="center">
+		<div align="center" class="border">
 			<div class="header">
 				<h1 class="word">Register</h1>
-			</div></br>
+			</div>
 			<h2 class="word">
 				<form action="{{ url_for('register') }}" method="POST">
 					{{form.csrf_token}}

@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>{{current_user.username}}</title>
+    </head>
+
+    <body>
+        <h1> Hello there {{current_user.username}} </h1>
+        {% extends "base.html" %}
+
+        {% block content %}
+        <form action="" method="post" novalidate>
+            <p>
+                <a href="{{url_for('buyItems')}}">Pay here!</a>
+                <a href="{{url_for('cart')}}">View your cart here!</a>
+                <a href="{{url_for('rateItem')}}">Rate an item here!</a>
+                <a href="{{url_for('addItem')}}">Sell your items here!</a>
+                <a href="{{url_for('logout')}}" >Sign out</a>
+            </p>
+        </form>
+        {% endblock %}
+    </body>
+</html>
