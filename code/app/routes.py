@@ -2,7 +2,7 @@ from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
 from app.models import User, Item, CartItem, CheckoutInfo
-from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm
+from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm, DeleteUserForm
 from werkzeug.security import generate_password_hash
 import sqlalchemy as sql
 
@@ -40,6 +40,16 @@ def register():
             flash("Registration was successful")
             return redirect(url_for('login'))
     return render_template('register.html', form = form)
+
+@login_required
+@myapp_obj.route('/delete', methods = ['GET', 'POST'])
+def delete_account():
+    if request.method == "POST":
+        current_user.remove()
+        db.session.commit()
+        flash('Your account has been deleted')
+        return redirect(url_for('login'))
+    return render_template('delete.html')
 
 @login_required
 @myapp_obj.route('/profile')
