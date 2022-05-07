@@ -22,6 +22,7 @@
 - **Trigger:** The user has moved from their home page to the profile viewer. 
 - **Primary Sequence:**
   
+<<<<<<< HEAD
   1. Entering their home page.
   2. Pressing the profile button.
 
@@ -135,3 +136,53 @@
     1. The user is not logged in.  
     2. The user selects "Add pictures to items".  
     3. The system displays an error message asking the user to log in.  
+=======
+  1. Ut enim ad minim veniam, quis nostrum e
+  2. Et sequi incidunt 
+  3. Quis aute iure reprehenderit
+  4. ... 
+  5. ...
+  6. ...
+  7. ...
+  8. ...
+  9. ...
+  10. <Try to stick to a max of 10 steps>
+- **Primary Postconditions:** <can be a list or short description> 
+- **Alternate Sequence:** <you can have more than one alternate sequence to 
+describe multiple issues that may arise>
+  
+  1. Ut enim ad minim veniam, quis nostrum e
+  2. Ut enim ad minim veniam, quis nostrum e
+  3. ...
+- **Alternate Sequence <optional>:** <you can have more than one alternate sequence
+to describe multiple issues that may arise>
+  
+  1. Ut enim ad minim veniam, quis nostrum e
+  2. Ut enim ad minim veniam, quis nostrum e
+  3. ...
+2. Use Case Name (Should match functional requirement name)
+   ...
+3. Add item to seller store
+   **Pre-condition:** User must be logged in
+   
+   **Trigger:** Customer selects " add items to shop" option
+
+   **Primary Sequence:** 
+   1:System allows user to place item into shop
+   2:Customer adds description of item 
+   3:Customer sets price of item
+   4:System lists item on website for sale
+   5:Customer logs out
+
+   **Alternate Sequence:**
+   2.Customer sells illegal item
+      a.System displays warning message to customer
+      b.System flags customer
+
+   **Post-condition:** 
+   -Customer's item is listed in the shop
+   -Customer receives money when item is bought
+    OR
+   -Customer fails to list item on shop
+   -System doesn't update and shop remains the same
+>>>>>>> 2bff62ca4f08db4a8c1e8de3dd048b72235a04c9
