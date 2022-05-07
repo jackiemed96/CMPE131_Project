@@ -19,6 +19,10 @@ db = SQLAlchemy(myapp_obj)
 login = LoginManager(myapp_obj)
 # function that is called to login a user
 login.login_view = 'login'
+login.init_app(myapp_obj)
 
 from app import routes, models
 
+@login.user_loader
+def load_user(user_id):
+	return User.query.get(int(user_id))
