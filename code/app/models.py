@@ -32,9 +32,6 @@ class RegistrationForm(FlaskForm):
     username = StringField('username', validators = [InputRequired()])
     password = PasswordField('password', validators=[InputRequired()])
 
-class DeleteUserForm(FlaskForm):
-    delete = SubmitField('Delete')
-
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     itemname = db.Column(db.String(256))

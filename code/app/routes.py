@@ -2,7 +2,7 @@ from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
 from app.models import User, Item, CartItem, CheckoutInfo
-from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm, DeleteUserForm
+from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm
 from werkzeug.security import generate_password_hash
 import sqlalchemy as sql
 
