@@ -27,6 +27,7 @@ class User(UserMixin, db.Model):
         return f'''<Seller: {self.username}, Item: {self.items},
                     Cart: {self.cartitems}>'''
 
+
 class RegistrationForm(FlaskForm):
     email = StringField('email', validators = [InputRequired()])
     username = StringField('username', validators = [InputRequired()])

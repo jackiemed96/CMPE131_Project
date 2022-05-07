@@ -12,7 +12,7 @@ def login():
 
     if request.method == "POST":
         if form.validate_on_submit ():
-            usersCheck = db.session.query(User).where(User.username == form['username'].data).all()
+            usersCheck = db.session.query(User).where(User.username == form['username'].data).all() #Validates user existence
             if len(usersCheck) == 0:
                 return redirect('/register')
             else:
@@ -29,7 +29,7 @@ def register():
     form = RegistrationForm(request.form)
     if request.method == "POST":
         if form.validate_on_submit():
-            hashed_password = generate_password_hash(form.password.data, method = 'sha256')
+            hashed_password = generate_password_hash(form.password.data, method = 'sha256') #'sha256' is a type of encryption
             username = form.username.data
             password = hashed_password
             email = form.email.data
@@ -70,14 +70,15 @@ def addItem():
     db.create_all()
     if request.method == "POST":
         if request.form["add_to_store"] == "Add to store":
-            newItem = Item(seller=request.form["seller"], itemname=request.form["item"], price=request.form["price"], rating=0, numberofratings=0, sumofratings=0)
+            newItem = Item(seller=request.form["seller"], itemname=request.form["item"], price=request.form["price"], 
+                            rating=0, numberofratings=0, sumofratings=0)
             db.session.add(newItem)
             db.session.commit()
             return render_template('itemspage.html', items=Item.query.all()) 
     return render_template('itemspage.html', items=Item.query.all())
 
 
-@myapp_obj.route('/cart/<string:item_name>')
+@myapp_obj.route('/cart/<string:item_name>') #Acquires name from the address bar
 def addToCart(item_name):
     item = Item.query.filter_by(itemname=item_name).first()
     cart_item = CartItem(seller=item.seller, price=item.price, itemname=item.itemname)
@@ -95,7 +96,7 @@ def cart():
 def rateItem():
     if request.method == "POST":
         if request.form["add_rating"] == "Add rating":
-            item = Item.query.filter_by(itemname=request.form["item"]).first()
+            item = Item.query.filter_by(itemname=request.form["item"]).first() #Retrieves first item with matching name
             item.updateRating(int(request.form["rating"]))
             db.session.commit()
     return render_template('rate.html')
@@ -107,9 +108,9 @@ def buyItems():
     if request.method == "POST":
         if request.form["submit"] == "Buy":
 
-            total_price_statement = CartItem.query.with_entities(sql.func.sum(CartItem.price))
+            total_price_statement = CartItem.query.with_entities(sql.func.sum(CartItem.price)) #Obtains item price from CartItem database; returns statement
 
-            total_price = total_price_statement.scalar()
+            total_price = total_price_statement.scalar() #Turns statement into a value
 
             info = CheckoutInfo(address=request.form["address"], ccNumber = request.form["number"], buyer = current_user.username)
             db.session.add(info)
