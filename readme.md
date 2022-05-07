@@ -34,3 +34,16 @@ This website allows users to easily buy and sell items.
 #### How To Checkout
 1. In the address bar, append '/checkout'
 2. Fill in the user information
+
+#### Team Contribution:
+The following requirements are what was implemented along with who implemented them.
+1. Login - Chris
+2. Logout - Chris
+3. Create Account - Josh
+4. Delete Account - Josh
+5. Add to cart  - Hieu
+6. Buy Items  - Jackie
+7. Splash Page - Jackie
+8. User Profiles - Chris
+9. User Ratings - Hieu
+10. Add item to seller store - Hieu
