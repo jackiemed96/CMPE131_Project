@@ -73,6 +73,13 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
+    
+class ProfileForm(FlaskForm):
+    button = SubmitField('Sign out')
+
+class LogoutForm(FlaskForm):
+	button = SubmitField('Sign out')
+    
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
