@@ -20,6 +20,9 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def remove(self):
+        db.session.delete(self)
+
     def __repr__(self):
         return f'''<Seller: {self.username}, Item: {self.items},
                     Cart: {self.cartitems}>'''
@@ -28,6 +31,9 @@ class RegistrationForm(FlaskForm):
     email = StringField('email', validators = [InputRequired()])
     username = StringField('username', validators = [InputRequired()])
     password = PasswordField('password', validators=[InputRequired()])
+
+class DeleteUserForm(FlaskForm):
+    delete = SubmitField('Delete')
 
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)

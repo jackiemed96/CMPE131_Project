@@ -134,4 +134,4 @@
 - **Alternate Sequence:** 
     1. The user is not logged in.  
     2. The user selects "Add pictures to items".  
-    3. The system displays an error message asking the user to log in.  
+    3. The system displays an error message asking the user to log in.
