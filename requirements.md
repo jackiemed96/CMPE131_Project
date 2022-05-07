@@ -8,8 +8,8 @@
 7. Splash Page //Jackie
 8. Editing User Profiles //Chris
 9. User Ratings //Hieu
-10. Add item to seller store //Josh
-11. Find Items  //Hieu
+10. Add item to seller store //Hieu
+11. Find Items  //Josh
 12. Add pictures for items //Jackie
 ## Non-functional Requirements
 1. Only expected to work on Firefox
@@ -97,7 +97,7 @@
   2. The user selects "Add to cart" on an item's page.
   3. The website displays an error message prompting the user to log in.
 
-5. User ratings
+5. Rate Items
 - **Pre-condition:** The user must be logged in and be on an item's page.
 - **Trigger:** The user must press the button "Rate this item".
 - **Primary Sequence:**
@@ -137,4 +137,4 @@
 - **Alternate Sequence:** 
     1. The user is not logged in.  
     2. The user selects "Add pictures to items".  
-    3. The system displays an error message asking the user to log in.  
+    3. The system displays an error message asking the user to log in.

@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>{{title}}</title>
-    <style>
-        h1 {
-            text-align: center;
-            font-family: Verdana, Geneva, sans-serif;
-           }
-        p {text-align:center}
-    </style>
-</head>
-<body>
-    {% extends "base.html" %}
 
-    {% block content %}
-    <h1>Welcome!</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </p>
-        <p>
-            {{ form.remember_me() }} {{ form.remember_me.label }} <a href="http://127.0.0.1:5000/register">Sign up here!</a>
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
-    {% endblock %}
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <title>{{title}}</title>
+        <style>
+            h1 {
+                text-align: center;
+                font-family: Verdana, Geneva, sans-serif;
+               }
+            p {text-align:center}
+        </style>
+    </head>
+
+    <body>
+        {% extends "base.html" %}
+
+        {% block content %}
+        <h1>Welcome!</h1>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.username.label }}<br>
+                {{ form.username(size=32) }}
+            </p>
+            <p>
+                {{ form.password.label }}<br>
+                {{ form.password(size=32) }}
+            </p>
+            <p>
+                {{ form.remember_me() }} {{ form.remember_me.label }} <a href="{{url_for('register')}}">Sign up here!</a>
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+        {% endblock %}
+    </body>
 </html>

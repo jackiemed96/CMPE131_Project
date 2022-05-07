@@ -20,9 +20,13 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def remove(self):
+        db.session.delete(self)
+
     def __repr__(self):
         return f'''<Seller: {self.username}, Item: {self.items},
                     Cart: {self.cartitems}>'''
+
 
 class RegistrationForm(FlaskForm):
     email = StringField('email', validators = [InputRequired()])
@@ -73,13 +77,13 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
-    
 class ProfileForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
     button = SubmitField('Sign out')
 
 class LogoutForm(FlaskForm):
 	button = SubmitField('Sign out')
-    
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))

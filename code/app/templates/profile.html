@@ -1,21 +1,23 @@
 <html>
-<head>
-    <title>{{ name }}</title>
-</head>
-<body>
-    <h1> Hello there {{ name }}'</h1>
-    {% extends "base.html" %}
+    <head>
+        <title>{{current_user.username}}</title>
+    </head>
 
-    {% block content %}
-    <form action="" method="post" novalidate>
-        <p>
-            <a href="{{url_for('buyItems')}}">Pay here!</a>
-            <a href="{{url_for('cart')}}">View your cart here!</a>
-            <a href="{{url_for('rateItem')}}">Rate an item here!</a>
-            <a href="{{url_for('addItem')}}">Sell your items here!</a>
-            <a href="{{url_for('logout')}}" >Sign out</a>
-        </p>
-    </form>
-    {% endblock %}
-</body>
+    <body>
+        <h1> Hello there {{current_user.username}} </h1>
+        {% extends "base.html" %}
+
+        {% block content %}
+        <form action="" method="post" novalidate>
+            <p>
+                <a href="{{url_for('buyItems')}}">Pay here!</a>
+                <a href="{{url_for('cart')}}">View your cart here!</a>
+                <a href="{{url_for('rateItem')}}">Rate an item here!</a>
+                <a href="{{url_for('addItem')}}">Sell your items here!</a>
+                <a href="{{url_for('logout')}}" >Sign out</a>
+		<a href="{{url_for('delete_account')}}" >Delete Account </a>
+            </p>
+        </form>
+        {% endblock %}
+    </body>
 </html>
