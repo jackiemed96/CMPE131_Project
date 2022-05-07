@@ -70,7 +70,7 @@ def addItem():
     db.create_all()
     if request.method == "POST":
         if request.form["add_to_store"] == "Add to store":
-            newItem = Item(seller=request.form["seller"], itemname=request.form["item"], price=request.form["price"], 
+            newItem = Item(seller=current_user.username, itemname=request.form["item"], price=request.form["price"], 
                             rating=0, numberofratings=0, sumofratings=0)
             db.session.add(newItem)
             db.session.commit()
