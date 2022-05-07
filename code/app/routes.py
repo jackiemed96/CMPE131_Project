@@ -9,9 +9,14 @@ from sqlalchemy import func
 def login():
     form = LoginForm()
     if form.validate_on_submit ():
-        flash('Login requested for user {}, remember_me={}' .format(form.username.data, form.remember_me.data))
+        load_user(user)
         return redirect('/profile')
     return render_template('login.html', title='Sign In', form=form)
+
+@myapp_obj.route('/login', methods = ['POST'])
+def login_post():
+	login_user(user, remember =remember)
+	return redirect(url_for('profile'))
 
 @myapp_obj.route('/register', methods =['GET', 'POST'])
 def register():
@@ -34,8 +39,14 @@ def register():
 @login_required
 @myapp_obj.route('/profile')
 def profile():
-    return ''
+	form = ProfileForm()
+	return render_template('profile.html', form = form, name = current_user.username)
 
+@login_required
+@myapp_obj.route('/logout')
+def logout():
+	form = LogoutForm()
+	return render_template('logout.html', form = form)
 
 @myapp_obj.route('/items', methods=['GET', 'POST'])
 def addItem():
