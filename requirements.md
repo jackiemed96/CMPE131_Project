@@ -6,7 +6,7 @@
 5. Add to cart  //Hieu
 6. Buy Items  //Jackie
 7. Splash Page //Jackie
-8. User Profiles //Chris
+8. Editing User Profiles //Chris
 9. User Ratings //Hieu
 10. Add item to seller store //Hieu
 11. Find Items  //Josh
@@ -17,19 +17,22 @@
 3. Transactions are secure
 4. The website will respond to the users within 1 second
 ## Use Cases
-1. View user profiles
+1. Editing User Profiles
 - **Pre-condition:** The user is logged in. The user is on their home page.
-- **Trigger:** The user has moved from their home page to the profile viewer. 
+- **Trigger:** The user has pressed a button to navigate to the profile editor. 
 - **Primary Sequence:**
   
-  1. Entering their home page.
-  2. Pressing the profile button.
+  1. Currently on their home page.
+  2. Pressing the profile editor, icon, or background button.
+  3. When in the editor write a short bio, in the icon space choose from a selection of icons, or in backgorund choose from a selection of backgrounds.
 
 - **Primary Postconditions:** The user is somewhere in the website (either the shopping viewr or any other page).
 - **Alternate Sequence:** 
   
   1. They are any place in the site whilst logged in.
   2. Select drop down menue in the upper right to select profile.
+  3. Pressing the profile editor, icon, or background button.
+  4. When in the editor write a short bio, in the icon space choose from a selection of icons, or in backgorund choose from a selection of backgrounds.
   
 2. Add item to seller store
 - **Pre-condition:**  User should be logged in. 

@@ -1,8 +1,10 @@
+from re import I
 from app import db, login
 from flask_login import UserMixin
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import InputRequired, Email, Length, DataRequired
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(UserMixin, db.Model):
@@ -20,13 +22,9 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def remove(self):
-        db.session.delete(self)
-
     def __repr__(self):
         return f'''<Seller: {self.username}, Item: {self.items},
                     Cart: {self.cartitems}>'''
-
 
 class RegistrationForm(FlaskForm):
     email = StringField('email', validators = [InputRequired()])
@@ -78,8 +76,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 class ProfileForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    button = SubmitField('Sign out')
+	button = SubmitField('Sign out')
 
 class LogoutForm(FlaskForm):
 	button = SubmitField('Sign out')
