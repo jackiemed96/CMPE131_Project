@@ -77,17 +77,14 @@ def addItem():
     return render_template('itemspage.html', items=Item.query.all())
 
 
-@myapp_obj.route('/cart/<string:item_name>') #Acquires name from the address bar
-def addToCart(item_name):
-    item = Item.query.filter_by(itemname=item_name).first()
-    cart_item = CartItem(seller=item.seller, price=item.price, itemname=item.itemname)
-    db.session.add(cart_item)
-    db.session.commit()
-    return render_template('cart.html', cart=CartItem.query.all())
-
-
-@myapp_obj.route('/cart/')
+@myapp_obj.route('/cart/', methods=['GET', 'POST'])
 def cart():
+    if request.method == "POST":
+        if request.form["add_to_cart"] == "Add to cart":
+            item = Item.query.filter_by(id=request.form["item_id"]).first() #Retrieves first item with matching ID
+            cart_item = CartItem(seller=item.seller, price=item.price, itemname=item.itemname)
+            db.session.add(cart_item)
+            db.session.commit()
     return render_template('cart.html', cart=CartItem.query.all())
 
 
@@ -95,7 +92,7 @@ def cart():
 def rateItem():
     if request.method == "POST":
         if request.form["add_rating"] == "Add rating":
-            item = Item.query.filter_by(itemname=request.form["item"]).first() #Retrieves first item with matching name
+            item = Item.query.filter_by(id=request.form["item_id"]).first() #Retrieves first item with matching ID
             item.updateRating(int(request.form["rating"]))
             db.session.commit()
     return render_template('rate.html')

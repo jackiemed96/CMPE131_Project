@@ -40,8 +40,7 @@ class CartItem(db.Model):
     price = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'''<Seller: {self.seller}, Item: {self.itemname}, 
-                    Price: ${self.price}>'''
+        return f'''{self.itemname} sold by {self.seller} for ${self.price}.'''
 
 
 class Item(db.Model):
@@ -59,8 +58,7 @@ class Item(db.Model):
         self.rating = self.sumofratings / self.numberofratings
 
     def __repr__(self):
-        return f'''<Seller: {self.seller}, Item: {self.itemname},
-                    Price: ${self.price}>, Rating: {self.rating}'''
+        return f'''{self.itemname} sold by {self.seller} for ${self.price} has a rating of {self.rating} stars.'''
 
 class CheckoutInfo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
