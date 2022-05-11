@@ -1,9 +1,10 @@
 from app import myapp_obj, db
-from flask import render_template, flash, Flask, request, redirect, url_for
+from flask import render_template, flash, Flask, request, redirect, url_for, Response
 from flask_login import login_user, logout_user, current_user, login_required
 from app.models import User, Item, CartItem, CheckoutInfo
 from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm
 from werkzeug.security import generate_password_hash
+from werkzeug.utils import secure_filename
 import sqlalchemy as sql
 
 @myapp_obj.route('/login', methods = ["GET", "POST"])
@@ -25,7 +26,6 @@ def login():
 
 @myapp_obj.route('/register', methods =['GET', 'POST'])
 def register():
-    db.create_all()
     form = RegistrationForm(request.form)
     if request.method == "POST":
         if form.validate_on_submit():
@@ -66,15 +66,24 @@ def logout():
 
 @myapp_obj.route('/items', methods=['GET', 'POST'])
 def addItem():
-    db.create_all()
     if request.method == "POST":
         if request.form["add_to_store"] == "Add to store":
-            newItem = Item(seller=current_user.username, itemname=request.form["item"], price=request.form["price"], 
-                            rating=0, numberofratings=0, sumofratings=0)
+            
+            pic = request.files["pic"]
+            filename = secure_filename(pic.filename)
+            mimetype = pic.mimetype
+
+            newItem = Item(seller=current_user.username, itemname=request.form["item"], price=request.form["price"], rating=0, numberofratings=0, sumofratings=0, img=pic.read(), mimetype=mimetype, name=filename)
             db.session.add(newItem)
             db.session.commit()
             return render_template('itemspage.html', items=Item.query.all()) 
     return render_template('itemspage.html', items=Item.query.all())
+
+
+@myapp_obj.route('/items/<int:id>')
+def viewImage(id):
+    img = Item.query.filter_by(id=id).first()
+    return Response(img.img, mimetype=img.mimetype)
 
 
 @myapp_obj.route('/cart/', methods=['GET', 'POST'])
@@ -100,7 +109,6 @@ def rateItem():
 
 @myapp_obj.route('/checkout/', methods = ["GET", "POST"])
 def buyItems():
-    db.create_all()
     if request.method == "POST":
         if request.form["submit"] == "Buy":
 
@@ -119,6 +127,7 @@ def buyItems():
 
 @myapp_obj.route('/', methods = ["GET", "POST"])
 def splash_page():
+    db.create_all()
     if request.method == "POST":
         if request.form["submit"] == "Login":
             return redirect(url_for('Login'))
