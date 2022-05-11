@@ -23,11 +23,6 @@ def login():
 
     return render_template('login.html', title='Sign In', form=form)
 
-@myapp_obj.route('/login', methods = ['POST'])
-def login_post():
-	login_user(user, remember =remember)
-	return redirect(url_for('profile'))
-
 @myapp_obj.route('/register', methods =['GET', 'POST'])
 def register():
     db.create_all()
@@ -59,7 +54,7 @@ def delete_account():
 @login_required
 @myapp_obj.route('/profile')
 def profile():
-   form = ProfileForm()
+    form = ProfileForm()
     return render_template('profile.html', form = form)
 
 @login_required
@@ -68,12 +63,6 @@ def logout():
     form = LogoutForm()
     logout_user()
     return render_template('logout.html', form = form)
-
-@login_required
-@myapp_obj.route('/logout')
-def logout():
-	form = LogoutForm()
-	return render_template('logout.html', form = form)
 
 @myapp_obj.route('/items', methods=['GET', 'POST'])
 def addItem():
