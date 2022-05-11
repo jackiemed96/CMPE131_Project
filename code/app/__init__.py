@@ -21,6 +21,7 @@ login.login_view = 'login'
 login.init_app(myapp_obj)
 
 from app import routes, models
+from app.models import User
 
 @login.user_loader
 def load_user(user_id):
