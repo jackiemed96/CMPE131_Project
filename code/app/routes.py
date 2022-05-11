@@ -81,7 +81,7 @@ def addItem():
 def cart():
     if request.method == "POST":
         if request.form["add_to_cart"] == "Add to cart":
-            item = Item.query.filter_by(id=request.form["item_id"]).first() #Retrieves first item with matching name
+            item = Item.query.filter_by(id=request.form["item_id"]).first() #Retrieves first item with matching ID
             cart_item = CartItem(seller=item.seller, price=item.price, itemname=item.itemname)
             db.session.add(cart_item)
             db.session.commit()
@@ -92,7 +92,7 @@ def cart():
 def rateItem():
     if request.method == "POST":
         if request.form["add_rating"] == "Add rating":
-            item = Item.query.filter_by(itemname=request.form["item"]).first() #Retrieves first item with matching name
+            item = Item.query.filter_by(id=request.form["item_id"]).first() #Retrieves first item with matching ID
             item.updateRating(int(request.form["rating"]))
             db.session.commit()
     return render_template('rate.html')
