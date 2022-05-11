@@ -51,6 +51,10 @@ class Item(db.Model):
     rating = db.Column(db.Integer)
     numberofratings = db.Column(db.Integer)
     sumofratings = db.Column(db.Integer)
+    img = db.Column(db.Text, unique=True, nullable=False)
+    name = db.Column(db.Text, nullable=False)
+    mimetype = db.Column(db.Text, nullable=False)
+
 
     def updateRating(self, userrating):
         self.numberofratings = self.numberofratings + 1
@@ -80,7 +84,7 @@ class ProfileForm(FlaskForm):
     button = SubmitField('Sign out')
 
 class LogoutForm(FlaskForm):
-	button = SubmitField('Sign out')
+    button = SubmitField('Sign out')
 
 @login.user_loader
 def load_user(id):
