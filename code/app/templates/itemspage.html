@@ -57,6 +57,7 @@
       <th scope="col">Item</th>
       <th scope="col">Price</th>
       <th scope="col">Rating</th>
+      <th scope="col">Image</th>
     </tr>
   </thead>
   <tbody>
@@ -67,6 +68,7 @@
       <td>{{ item.itemname}}</td>
       <td>${{ item.price }}</td>
       <td>{{ item.rating }}</td>
+      <td><a href="{{url_for('viewImage', id=item.id)}}">Image Link</a>
     </tr>
     {% endfor %}
   </tbody>
