@@ -2,12 +2,14 @@
     <head>
         <title>{{current_user.username}}</title>
     </head>
-
     <body>
         <h1> Hello there {{current_user.username}} </h1>
         {% extends "base.html" %}
-
+        
         {% block content %}
+        <body>
+            {% include 'navbar.html' %}
+        </body>
         <form action="" method="post" novalidate>
             <p>
                 <a href="{{url_for('buyItems')}}">Pay here!</a>
