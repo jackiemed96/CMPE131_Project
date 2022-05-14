@@ -120,10 +120,21 @@ def buyItems():
             db.session.add(info)
             db.session.commit()
 
-            return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = total_price)
-    
-    return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = (CartItem.query.with_entities(sql.func.sum(CartItem.price))).scalar())
+            for item in CartItem.query.all():
+                itemDelete = Item.query.filter_by(id = item.id).first()
 
+                db.session.delete(item)
+                db.session.commit()
+                
+                for item_ in Item.query.all():
+                    if item_ == itemDelete:
+                        db.session.delete(item_)
+                        db.session.commit()
+
+
+            return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = CartItem.query.all(), total_price = total_price)
+    
+    return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = CartItem.query.all(), total_price = (CartItem.query.with_entities(sql.func.sum(CartItem.price))).scalar())
 
 @myapp_obj.route('/', methods = ["GET", "POST"])
 def splash_page():
