@@ -2,7 +2,7 @@ from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for, Response
 from flask_login import login_user, logout_user, current_user, login_required
 from app.models import User, Item, CartItem, CheckoutInfo
-from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm
+from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm, SearchForm
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 import sqlalchemy as sql
@@ -50,6 +50,22 @@ def delete_account():
         flash('Your account has been deleted')
         return redirect(url_for('login'))
     return render_template('delete.html')
+
+@myapp_obj.context_processor
+def base():
+    form = SearchForm()
+    return dict(form = form)
+
+@login_required
+@myapp_obj.route('/search', methods = ['POST'])
+def search():
+    form = SearchForm()
+    items = Item.query
+    if form.validate_on_submit():
+        Item.searched = form.searched.data
+        items = items.filter(Item.itemname.like('%'+ Item.searched + '%' ))
+        items = items.order_by(Item.id).all()
+        return render_template('search.html', form = form, searched = Item.searched, items = items)
 
 @login_required
 @myapp_obj.route('/profile')
