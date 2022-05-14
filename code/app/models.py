@@ -51,9 +51,9 @@ class Item(db.Model):
     rating = db.Column(db.Integer)
     numberofratings = db.Column(db.Integer)
     sumofratings = db.Column(db.Integer)
-    img = db.Column(db.Text, unique=True, nullable=False)
-    name = db.Column(db.Text, nullable=False)
-    mimetype = db.Column(db.Text, nullable=False)
+    img = db.Column(db.Text)
+    name = db.Column(db.Text)
+    mimetype = db.Column(db.Text)
 
 
     def updateRating(self, userrating):
