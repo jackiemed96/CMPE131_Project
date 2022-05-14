@@ -77,6 +77,7 @@ def addItem():
             db.session.add(newItem)
             db.session.commit()
             return render_template('itemspage.html', items=Item.query.all()) 
+        
     return render_template('itemspage.html', items=Item.query.all())
 
 
@@ -147,3 +148,15 @@ def splash_page():
             return redirect(url_for('Register'))
 
     return render_template('splash.html')
+
+@myapp_obj.route('/deleteItem', methods = ["GET", "POST"])
+def deleteItem():
+    if request.method == "POST":
+        if request.form["delete_item"] == "Delete":
+            item_to_delete = Item.query.filter_by(id = request.form["item_id"]).first()
+            db.session.delete(item_to_delete)
+            db.session.commit()
+
+            return render_template('deleteItem.html', item_list = Item.query.all())
+        
+    return render_template('deleteItem.html', item_list = Item.query.all())

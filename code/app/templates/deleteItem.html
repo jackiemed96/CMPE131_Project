@@ -1,0 +1,22 @@
+<html>
+    <h3> Delete Items </h3>
+
+    <body>
+        <form action = "" method = "POST">
+            Item List:
+            <ul>
+              {% for item in item_list %}
+		          <li> {{item}} </li>
+		        {%endfor %}
+		    </ul>
+            
+            <p> Please enter the item ID: </p>
+            <p> <input type = "number" name = "item_id"> </p>
+            <p> <input type = "submit" name = "delete_item" value = "Delete"> </p>
+
+        </form>   
+    
+    <a href="{{url_for('addItem')}}"> Back to Items </a>
+    
+    </body>
+</html>

@@ -69,13 +69,14 @@
       <td>${{ item.price }}</td>
       <td>{{ item.rating }}</td>
       <td><a href="{{url_for('viewImage', id=item.id)}}">Image Link</a>
-    </tr>
     {% endfor %}
   </tbody>
 </table>
 <a href="{{url_for('rateItem')}}">Rate Items</a>
 <br>
 <a href="{{url_for('cart')}}">View Cart</a>
-  </body>
+<br>
+<a href="{{url_for('deleteItem')}}"> Delete Item </a>
+</body>
 </html>
 
