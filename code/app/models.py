@@ -33,6 +33,10 @@ class RegistrationForm(FlaskForm):
     username = StringField('username', validators = [InputRequired()])
     password = PasswordField('password', validators=[InputRequired()])
 
+class SearchForm(FlaskForm):
+    searched = StringField("Searched", validators = [DataRequired()])
+    submit = SubmitField("Submit")
+
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     itemname = db.Column(db.String(256))
@@ -44,6 +48,7 @@ class CartItem(db.Model):
 
 
 class Item(db.Model):
+    __searchable__ = ['itemname']
     id = db.Column(db.Integer, primary_key=True)
     itemname = db.Column(db.String(256))
     seller = db.Column(db.String(64), db.ForeignKey('user.username'))
