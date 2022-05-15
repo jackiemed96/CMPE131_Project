@@ -93,6 +93,7 @@ def addItem():
             db.session.add(newItem)
             db.session.commit()
             return render_template('itemspage.html', items=Item.query.all()) 
+        
     return render_template('itemspage.html', items=Item.query.all())
 
 
@@ -144,10 +145,21 @@ def buyItems():
             db.session.add(info)
             db.session.commit()
 
-            return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = total_price)
-    
-    return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = (CartItem.query.with_entities(sql.func.sum(CartItem.price))).scalar())
+            for item in CartItem.query.all():
+                itemDelete = Item.query.filter_by(itemname = item.itemname).first()
 
+                for item_ in Item.query.all():
+                    if item_ == itemDelete:
+                        db.session.delete(item_)
+                        db.session.commit()
+
+                db.session.delete(item)
+                db.session.commit()
+                
+
+            return render_template('shipping.html', buyInfo=CheckoutInfo.query.filter_by(buyer = current_user.username), items = CartItem.query.all(), total_price = total_price)
+
+    return render_template('shipping.html', buyInfo=CheckoutInfo.query.filter_by(buyer = current_user.username), items = CartItem.query.all(), total_price = (CartItem.query.with_entities(sql.func.sum(CartItem.price))).scalar())
 
 @myapp_obj.route('/', methods = ["GET", "POST"])
 def splash_page():
@@ -160,3 +172,18 @@ def splash_page():
             return redirect(url_for('Register'))
 
     return render_template('splash.html')
+
+@myapp_obj.route('/deleteItem', methods = ["GET", "POST"])
+def deleteItem():
+    if request.method == "POST":
+        if request.form["delete_item"] == "Delete":
+            item_to_delete = Item.query.filter_by(id = request.form["item_id"]).first()
+            db.session.delete(item_to_delete)
+            db.session.commit()
+
+            return render_template('deleteItem.html', item_list = Item.query.all())
+
+        elif request.form["back"] == "Back":
+            return redirect(url_for('Back'))
+        
+    return render_template('deleteItem.html', item_list = Item.query.all())
