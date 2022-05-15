@@ -119,7 +119,7 @@ def rateItem():
         if request.form["add_rating"] == "Add rating":
             item = Item.query.filter_by(id=request.form["item_id"]).first() #Retrieves first item with matching ID
             item.updateRating(int(request.form["rating"]))
-            review = Review(body=request.form["review"], username=current_user.username, item=item.itemname)
+            review = Review(body=request.form["review"], username=current_user.username, item=item.itemname, rating=int(request.form["rating"]))
             db.session.add(review)
             db.session.commit()
     return render_template('rate.html')
