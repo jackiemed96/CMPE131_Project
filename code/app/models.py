@@ -12,7 +12,8 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     items = db.relationship('Item')
     cartitems = db.relationship('CartItem')
-    checkout = db.relationship('CheckoutInfo')
+    #checkout_id = db.relationship('CheckoutInfo', backref="user", primaryjoin = "and_(User.id == CheckoutInfo.userID)")
+    checkout_id = db.relationship('CheckoutInfo')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -71,6 +72,7 @@ class Item(db.Model):
 
 class CheckoutInfo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+    #userID = db.Column(db.Integer, db.ForeignKey('user.id'))
     buyer = db.Column(db.String(64), db.ForeignKey('user.username'))
     address = db.Column(db.String(64))
     ccNumber = db.Column(db.Integer)
