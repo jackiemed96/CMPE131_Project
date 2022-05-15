@@ -78,9 +78,10 @@ class Review(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     username = db.Column(db.String(64), db.ForeignKey('user.username'))
     item = db.Column(db.String(64), db.ForeignKey('item.itemname'))
+    rating = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'User {self.username} said, "{self.body}" about {self.item} on {self.timestamp}.'
+        return f'{self.username} gave a rating of {self.rating}: "{self.body}" [{self.timestamp}]'
 
 class CheckoutInfo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
