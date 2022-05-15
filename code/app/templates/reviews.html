@@ -1,0 +1,13 @@
+<html>
+	<head>
+		<title>Reviews of {{ item.itemname }}</title>
+	</head>
+	<body>
+		<h1>Reviews of {{ item.itemname }}</h1>
+		{% for review in reviews %}
+		<h3>
+			{{ review }}
+		</h3>
+		{% endfor %}
+	</body>
+</html>

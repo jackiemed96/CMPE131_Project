@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import InputRequired, Email, Length, DataRequired
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -13,6 +14,7 @@ class User(UserMixin, db.Model):
     items = db.relationship('Item')
     cartitems = db.relationship('CartItem')
     checkout = db.relationship('CheckoutInfo')
+    reviews = db.relationship('Review')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -50,7 +52,7 @@ class CartItem(db.Model):
 class Item(db.Model):
     __searchable__ = ['itemname']
     id = db.Column(db.Integer, primary_key=True)
-    itemname = db.Column(db.String(256))
+    itemname = db.Column(db.String(64))
     seller = db.Column(db.String(64), db.ForeignKey('user.username'))
     price = db.Column(db.Integer)
     rating = db.Column(db.Integer)
@@ -59,7 +61,7 @@ class Item(db.Model):
     img = db.Column(db.Text)
     name = db.Column(db.Text)
     mimetype = db.Column(db.Text)
-
+    reviews = db.relationship('Review')
 
     def updateRating(self, userrating):
         self.numberofratings = self.numberofratings + 1
@@ -68,6 +70,17 @@ class Item(db.Model):
 
     def __repr__(self):
         return f'''{self.itemname} sold by {self.seller} for ${self.price} has a rating of {self.rating} stars.'''
+
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(256))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    username = db.Column(db.String(64), db.ForeignKey('user.username'))
+    item = db.Column(db.String(64), db.ForeignKey('item.itemname'))
+
+    def __repr__(self):
+        return f'User {self.username} said, "{self.body}" about {self.item} on {self.timestamp}.'
 
 class CheckoutInfo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
