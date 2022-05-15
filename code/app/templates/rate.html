@@ -31,6 +31,10 @@
         <label class="form-label">Rating:</label>
         <input type="number" class="form-control" placeholder="Rating" name="rating" min="1" max="5">
     </div>
+    <div class="mb-3">
+        <label class="form-label">Review:</label>
+        <input type="text" class="form-control" placeholder="Review" name="review">
+    </div>
     <input type="submit" class="btn btn-primary" name="add_rating" value="Add rating">
     <br>
     <a href="{{url_for('addItem')}}">View/Sell Items</a>

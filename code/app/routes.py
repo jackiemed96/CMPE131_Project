@@ -1,7 +1,7 @@
 from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for, Response
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import User, Item, CartItem, CheckoutInfo
+from app.models import User, Item, CartItem, CheckoutInfo, Review
 from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm, SearchForm
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
@@ -120,8 +120,16 @@ def rateItem():
         if request.form["add_rating"] == "Add rating":
             item = Item.query.filter_by(id=request.form["item_id"]).first() #Retrieves first item with matching ID
             item.updateRating(int(request.form["rating"]))
+            review = Review(body=request.form["review"], username=current_user.username, item=item.itemname)
+            db.session.add(review)
             db.session.commit()
     return render_template('rate.html')
+
+@myapp_obj.route('/reviews/<int:id>')
+def itemReviews(id):
+    reviews = Item.query.filter_by(id=id).first().reviews
+    item = Item.query.filter_by(id=id).first()
+    return render_template('reviews.html', item=item, reviews=reviews)
 
 
 @myapp_obj.route('/checkout/', methods = ["GET", "POST"])
