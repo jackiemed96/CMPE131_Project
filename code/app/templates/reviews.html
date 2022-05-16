@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block body %}
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,20 +37,4 @@
     </div>
 </div>
 </body>
-</html>
-=======
-{% extends 'base.html' %}
-{% block body %}
-	<head>
-		<title>Reviews of {{ item.itemname }}</title>
-	</head>
-	<body>
-		<h1>Reviews of {{ item.itemname }}</h1>
-		{% for review in reviews %}
-		<h3>
-			{{ review }}
-		</h3>
-		{% endfor %}
-	</body>
 {% endblock %}
->>>>>>> 7cfb45161ffc9ca5e3b15753220511529ad947a9
