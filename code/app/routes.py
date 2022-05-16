@@ -12,7 +12,7 @@ def login():
     form = LoginForm(request.form)
 
     if request.method == "POST":
-        if form.validate_on_submit ():
+        if form.validate_on_submit():
             usersCheck = db.session.query(User).where(User.username == form['username'].data).all() #Validates user existence
             if len(usersCheck) == 0:
                 return redirect('/register')

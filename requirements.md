@@ -1,21 +1,22 @@
 ## Functional Requirements
-1. Login //Chris
-2. Logout //Chris
-3. Create Account //Josh
-4. Delete Account //Josh
-5. Add to cart  //Hieu
-6. Buy Items  //Jackie
-7. Splash Page //Jackie
-8. Editing User Profiles //Chris
-9. User Ratings //Hieu
-10. Add item to seller store //Hieu
-11. Find Items  //Josh
-12. Add pictures for items //Jackie
+1. Login - Chris
+2. Logout - Chris
+3. Create Account - Josh
+4. Delete Account - Josh
+5. Add to cart  - Hieu
+6. Buy Items  - Jackie
+7. Delete Item - Jackie
+8. Editing User Profiles - Chris
+9. User Ratings - Hieu
+10. Add item to seller store - Hieu
+11. Find Items - Josh
+12. Add pictures for items - Hieu
 ## Non-functional Requirements
 1. Only expected to work on Firefox
 2. Multilingual support
 3. Transactions are secure
 4. The website will respond to the users within 1 second
+5. Splash Page
 ## Use Cases
 1. Editing User Profiles
 - **Pre-condition:** The user is logged in. The user is on their home page.
