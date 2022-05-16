@@ -129,7 +129,7 @@ def rateItem():
 def itemReviews(id):
     reviews = Item.query.filter_by(id=id).first().reviews
     item = Item.query.filter_by(id=id).first()
-    return render_template('reviews.html', item=item, reviews=reviews)
+    return render_template('reviews.html', reviews=reviews, item=item)
 
 
 @myapp_obj.route('/checkout/', methods = ["GET", "POST"])
