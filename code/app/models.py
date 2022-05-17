@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64))
     email = db.Column(db.String(64))
     password_hash = db.Column(db.String(128))
+    shopping = db.Column(db.String(256))
     items = db.relationship('Item')
     cartitems = db.relationship('CartItem')
     checkout = db.relationship('CheckoutInfo')
@@ -100,7 +101,13 @@ class LoginForm(FlaskForm):
 
 class ProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
+    shopping = StringField('Shopping List')
     button = SubmitField('Sign out')
+
+class EditingForm(FlaskForm):
+    shopping = StringField('Shopping List')
+
+
 
 class LogoutForm(FlaskForm):
     button = SubmitField('Sign out')

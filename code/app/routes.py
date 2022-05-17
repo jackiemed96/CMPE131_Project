@@ -2,7 +2,7 @@ from app import myapp_obj, db
 from flask import render_template, flash, Flask, request, redirect, url_for, Response
 from flask_login import login_user, logout_user, current_user, login_required
 from app.models import User, Item, CartItem, CheckoutInfo, Review
-from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm, SearchForm
+from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm, SearchForm, EditingForm
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 import sqlalchemy as sql
@@ -68,10 +68,21 @@ def search():
         return render_template('search.html', form = form, searched = Item.searched, items = items)
 
 @login_required
-@myapp_obj.route('/profile')
+@myapp_obj.route('/profile', methods = ['GET', 'POST'])
 def profile():
-    form = ProfileForm()
-    return render_template('profile.html', form = form)
+    if request.method == 'POST':
+        update = request.form['shopping']
+        current_user.shopping = update
+        #print(update, current_user.shopping)
+        db.session.commit()
+    return render_template('profile.html')
+
+@login_required
+@myapp_obj.route('/edit', methods = ['GET', 'POST'])
+def edit():
+    form = EditingForm(request.form)
+    return render_template('edit.html', form = form)
+
 
 @login_required
 @myapp_obj.route('/logout')
