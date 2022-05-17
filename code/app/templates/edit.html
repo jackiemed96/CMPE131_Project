@@ -1,0 +1,14 @@
+﻿{% extends "base.html" %}
+    {% block body %}
+<title> {{current_user.username}}'s Profile </title>
+<h1> Hello there {{current_user.username}} </h1>
+<body>
+<form action="{{url_for('profile', shopping = shopping)}}" method='POST' novalidate>
+    <p>
+        <input name="shopping" id = "shopping" class="textbox" value = "{{current_user.shopping}}" />
+            <br><input type="submit" class="btn btn-dark"></br>
+    </p>
+
+</form>
+    </body>
+    {% endblock %}
