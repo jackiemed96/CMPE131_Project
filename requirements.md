@@ -1,21 +1,22 @@
 ## Functional Requirements
-1. Login //Chris
-2. Logout //Chris
-3. Create Account //Josh
-4. Delete Account //Josh
-5. Add to cart  //Hieu
-6. Buy Items  //Jackie
-7. Splash Page //Jackie
-8. Editing User Profiles //Chris
-9. User Ratings //Hieu
-10. Add item to seller store //Hieu
-11. Find Items  //Josh
-12. Add pictures for items //Jackie
+1. Login - Chris
+2. Logout - Chris
+3. Create Account - Josh
+4. Delete Account - Josh
+5. Add to cart  - Hieu
+6. Buy Items  - Jackie
+7. Delete Item - Jackie
+8. Editing User Profiles - Chris
+9. User Ratings - Hieu
+10. Add item to seller store - Hieu
+11. Find Items - Josh
+12. Add pictures for items - Hieu
 ## Non-functional Requirements
 1. Only expected to work on Firefox
 2. Multilingual support
 3. Transactions are secure
 4. The website will respond to the users within 1 second
+5. Splash Page
 ## Use Cases
 1. Editing User Profiles
 - **Pre-condition:** The user is logged in. The user is on their home page.
@@ -35,12 +36,15 @@
   4. When in the editor write a short bio, in the icon space choose from a selection of icons, or in backgorund choose from a selection of backgrounds.
   
 2. Add item to seller store
-- **Pre-condition:**  User should be logged in. 
-- **Trigger:** The user has moved from a page to the listing maker. 
+- **Pre-condition:**  User should be logged in and on the profile page. 
+- **Trigger:** The user clicks on 'Sell your items' button. 
 - **Primary Sequence:**
   
-  1. Entering their home page.
-  2. Pressing the make a listing button.
+  1. The user is prompted to input an item name, price, and picture.
+  2. The user inputs a name and price into the respective text boxes.
+  3. The user uploads a picture by clicking 'Browse...' and selecting an image. 
+  4. The user selects 'Add to store'.
+  5. The item is now added to the list of items on the items page. 
 
 - **Primary Postconditions:** The user is in their profile page.
 - **Alternate Sequence:**
@@ -61,13 +65,12 @@
 - **Trigger:** 
   1. Customer clicks 'buy item' button
 - **Primary Sequence:**
-  1. Customer logs into account
-  2. Customer searches for item
-  3. Customer adds desired item to their cart
-  4. Customer clicks the 'buy item' button
-  5. Customer is prompted for their shipping information
-  6. Customer is prompted for their payment information
-  7. Customer clicks "buy" button
+  1. Customer searches for item
+  2. Customer adds desired item to their cart
+  3. Customer clicks the 'buy item' button
+  4. Customer is prompted for their shipping information
+  5. Customer is prompted for their payment information
+  6. Customer clicks "buy" button
 - **Primary Postconditions:**
         - Customer has bought an item       
 - **Alternate Sequence:**
@@ -76,15 +79,14 @@
   3. Customer can search for a different item
 
 4. Add to cart
-- **Pre-condition:** The user must be logged in and be on the item's page.
-- **Trigger:** The user must press the button "Add to cart".
+- **Pre-condition:** The user must be logged in and be on the profile page.
+- **Trigger:** The user must press the button "View cart".
 - **Primary Sequence:**
   
-  1. The user is logged in.
-  2. The user is on the page with their desired item.
-  3. The user selects the "Add to cart" button on that page.
-  4. The item will be sent to the user's cart.
-  5. The website displays the message "Add to cart successfully".
+  1. The user is prompted to enter an item's id on the cart page.
+  2. The user inputs the desired item's id.
+  2. The user selects the "Add to cart" button on that page.
+  3. The item will be added to the user's cart and displayed on the cart page.
 
 - **Primary Postconditions:** 
 
@@ -98,16 +100,14 @@
   3. The website displays an error message prompting the user to log in.
 
 5. Rate Items
-- **Pre-condition:** The user must be logged in and be on an item's page.
-- **Trigger:** The user must press the button "Rate this item".
+- **Pre-condition:** The user must be logged in and be on the profile page.
+- **Trigger:** The user must press the button "Rate an item".
 - **Primary Sequence:**
   
-  1. The user is logged in.
-  2. The user is on the page of an item.
-  3. The user selects the "Rate this item" button on that page.
-  4. The website displays a message promping the user to input a number rating.
-  5. The user inputs a number.
-  6. The website displays the message "Rating received"
+  1. The user is prompted an item's id and a numerical rating.
+  2. The user inputs an item id and numerical rating into the respective fields.
+  3. The user selects 'Add rating'.
+  4. The item's rating will be updated on the items page.
 
 - **Primary Postconditions:**
 

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <title> Search </title>
+    <br/>
+    <h2> You Searched For... </h2>
+    <p> {{searched}} </p>
+    <br/>
+
+    {% for Item in items %}
+        <a href="{{url_for('addItem')}}">{{Item}}</a><br/>
+    {% endfor %}
+{% endblock %}

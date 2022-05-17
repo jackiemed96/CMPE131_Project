@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import InputRequired, Email, Length, DataRequired
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -14,6 +15,7 @@ class User(UserMixin, db.Model):
     items = db.relationship('Item')
     cartitems = db.relationship('CartItem')
     checkout = db.relationship('CheckoutInfo')
+    reviews = db.relationship('Review')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -34,6 +36,10 @@ class RegistrationForm(FlaskForm):
     username = StringField('username', validators = [InputRequired()])
     password = PasswordField('password', validators=[InputRequired()])
 
+class SearchForm(FlaskForm):
+    searched = StringField("Searched", validators = [DataRequired()])
+    submit = SubmitField("Submit")
+
 class CartItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     itemname = db.Column(db.String(256))
@@ -41,18 +47,22 @@ class CartItem(db.Model):
     price = db.Column(db.Integer)
 
     def __repr__(self):
-        return f'''<Seller: {self.seller}, Item: {self.itemname}, 
-                    Price: ${self.price}>'''
+        return f'''{self.itemname} sold by {self.seller} for ${self.price}.'''
 
 
 class Item(db.Model):
+    __searchable__ = ['itemname']
     id = db.Column(db.Integer, primary_key=True)
-    itemname = db.Column(db.String(256))
+    itemname = db.Column(db.String(64))
     seller = db.Column(db.String(64), db.ForeignKey('user.username'))
     price = db.Column(db.Integer)
     rating = db.Column(db.Integer)
     numberofratings = db.Column(db.Integer)
     sumofratings = db.Column(db.Integer)
+    img = db.Column(db.Text)
+    name = db.Column(db.Text)
+    mimetype = db.Column(db.Text)
+    reviews = db.relationship('Review')
 
     def updateRating(self, userrating):
         self.numberofratings = self.numberofratings + 1
@@ -60,8 +70,19 @@ class Item(db.Model):
         self.rating = self.sumofratings / self.numberofratings
 
     def __repr__(self):
-        return f'''<Seller: {self.seller}, Item: {self.itemname},
-                    Price: ${self.price}>, Rating: {self.rating}'''
+        return f'''{self.itemname} sold by {self.seller} for ${self.price} has a rating of {self.rating} stars.'''
+
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(256))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    username = db.Column(db.String(64), db.ForeignKey('user.username'))
+    item = db.Column(db.String(64), db.ForeignKey('item.itemname'))
+    rating = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f'{self.username} gave a rating of {self.rating}: "{self.body}" [{self.timestamp}]'
 
 class CheckoutInfo(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -89,7 +110,7 @@ class EditingForm(FlaskForm):
 
 
 class LogoutForm(FlaskForm):
-	button = SubmitField('Sign out')
+    button = SubmitField('Sign out')
 
 @login.user_loader
 def load_user(id):

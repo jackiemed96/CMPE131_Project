@@ -27,23 +27,33 @@ This website allows users to easily buy and sell items.
 
 #### How To Sell Items
 1. Fill in information about the item and add to store
+2. Adding an image (optional) can be done by clicking 'browse' underneath item information and choosing image
 
 #### How To Add Item To Cart
-1. In the address bar, append '/cart/(item name)'
+1. Click on 'Cart' in the navigation bar and fill out the information
 
 #### How To Checkout
-1. In the address bar, append '/checkout'
+1. Click on either the 'Checkout' link or in the navigation bar
 2. Fill in the user information
 
+#### How To Leave A Review/Rating
+1. On the profile page, click on 'Rate an item here!'
+2. Fill out the information
+
+#### How To Signout or Delete Account
+1. On the profile page, click on either 'Sign Out' or 'Delete Account'
+
 #### Team Contribution:
-The following requirements are what was implemented along with who implemented them.
+The following requirements are what were implemented along with who implemented them.
 1. Login - Chris
 2. Logout - Chris
 3. Create Account - Josh
 4. Delete Account - Josh
 5. Add to cart  - Hieu
 6. Buy Items  - Jackie
-7. Splash Page - Jackie
-8. User Profiles - Chris
+7. Delete Item - Jackie
+8. Editing Profiles - Chris
 9. User Ratings - Hieu
 10. Add item to seller store - Hieu
+11. Find Items - Josh
+12. Add pictures for items - Hieu

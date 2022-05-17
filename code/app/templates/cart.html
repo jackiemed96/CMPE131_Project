@@ -1,16 +1,38 @@
-<html>
-	<head>
-	</head>
-	<body>
-		<h1> In Cart: </h1>
-		{% if cart %}
-		<ul>
-		{% for item in cart %}
-		<li>
-			{{ item }}
-		</li>
-		{% endfor %}
-		</ul>
-		{% endif %}
-	</body>
-</html>
+{% extends 'base.html' %}
+{% block body %}
+    <title>Shopping Cart</title>
+  <body>
+    <h1>Add to Cart</h1>
+    <form action="#" method="post">
+    <div class="mb-3">
+        <label class="form-label">Item ID:</label>
+        <input type="text" class="form-control" placeholder="Item ID" name="item_id">
+    </div>
+    <input type="submit" class="btn btn-primary" name="add_to_cart" value="Add to cart">
+</form>
+
+                <h1>In Cart:</h1>
+		<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Seller</th>
+      <th scope="col">Item</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+          {% for item in cart %}
+    <tr>
+      <th scope="row">{{ item.id }}</th>
+      <td>{{ item.seller }}</td>
+      <td>{{ item.itemname}}</td>
+      <td>${{ item.price }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href = "{{url_for('buyItems')}}"> Checkout </a>
+  </body>
+{% endblock %}

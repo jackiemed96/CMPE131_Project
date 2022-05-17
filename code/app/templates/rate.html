@@ -1,13 +1,22 @@
-<html>
-	<head>
-	</head>
-	<body>
-		<form action="#" method="post">
-			<p>Item Name:</p>
-			<p><input type="text" name="item" /></p>
-			<p>Rating:</p>
-			<p><input type="number" name="rating" min="1" max="5" /></p>
-			<p><input type="submit" name="add_rating" value="Add rating" /></p>
-		</form>
-	<body>
-</html>
+{% extends 'base.html' %}
+{% block body %}
+    <title>Rating Page</title>
+
+    <h1>Rate Items</h1>
+	<form action="#" method="post">
+    <div class="mb-3">
+        <label class="form-label">Item ID:</label>
+        <input type="number" class="form-control" placeholder="Item ID" name="item_id">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Rating:</label>
+        <input type="number" class="form-control" placeholder="Rating" name="rating" min="1" max="5">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Review:</label>
+        <input type="text" class="form-control" placeholder="Review" name="review">
+    </div>
+    <input type="submit" class="btn btn-primary" name="add_rating" value="Add rating">
+</form>
+  </body>
+{% endblock %}

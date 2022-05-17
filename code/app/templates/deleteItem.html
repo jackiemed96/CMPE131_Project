@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <title> Delete Item </title>
+        <form action = "#" method = "POST">
+            <div class = "text-center">
+                <br> <h4> Delete Item </h4> 
+            </div>
+
+            <table class = "table">
+                <thead class = "table dark">
+                    <tr>
+                        <th> Item ID </th>
+                        <th> Item Name </th>
+                        <th> Seller Name </th>
+                        <th> Price </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in item_list %}
+                        <tr>
+                            <th scope = "row"> {{item.id}} </th>
+                            <td> {{item.itemname}} </td>
+                            <td> {{item.seller}} </td>
+                            <td> ${{item.price}} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class = "form-group">
+                <div class = "col-md-4">
+                    <label class = "form-label"> Enter Item ID </label>
+                    <input type = "number" class = "form-control" name = "item_id"> <br>
+                    <button type = "submit" class = "btn btn-outline-danger" name = "delete_item" value = "Delete"> Delete </button> <br>
+                </div>
+            </div>
+        </form> <br>
+    </body>
+
+{% endblock %}

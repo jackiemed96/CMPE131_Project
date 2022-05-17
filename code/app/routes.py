@@ -1,9 +1,10 @@
 from app import myapp_obj, db
-from flask import render_template, flash, Flask, request, redirect, url_for
+from flask import render_template, flash, Flask, request, redirect, url_for, Response
 from flask_login import login_user, logout_user, current_user, login_required
-from app.models import User, Item, CartItem, CheckoutInfo
-from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm, EditingForm
+from app.models import User, Item, CartItem, CheckoutInfo, Review
+from app.models import RegistrationForm, LoginForm, LogoutForm, ProfileForm, SearchForm, EditingForm
 from werkzeug.security import generate_password_hash
+from werkzeug.utils import secure_filename
 import sqlalchemy as sql
 
 @myapp_obj.route('/login', methods = ["GET", "POST"])
@@ -11,7 +12,7 @@ def login():
     form = LoginForm(request.form)
 
     if request.method == "POST":
-        if form.validate_on_submit ():
+        if form.validate_on_submit():
             usersCheck = db.session.query(User).where(User.username == form['username'].data).all() #Validates user existence
             if len(usersCheck) == 0:
                 return redirect('/register')
@@ -23,14 +24,8 @@ def login():
 
     return render_template('login.html', title='Sign In', form=form)
 
-@myapp_obj.route('/login', methods = ['POST'])
-def login_post():
-	login_user(user, remember =remember)
-	return redirect(url_for('profile'))
-
 @myapp_obj.route('/register', methods =['GET', 'POST'])
 def register():
-    db.create_all()
     form = RegistrationForm(request.form)
     if request.method == "POST":
         if form.validate_on_submit():
@@ -56,6 +51,22 @@ def delete_account():
         return redirect(url_for('login'))
     return render_template('delete.html')
 
+@myapp_obj.context_processor
+def base():
+    form = SearchForm()
+    return dict(form = form)
+
+@login_required
+@myapp_obj.route('/search', methods = ['POST'])
+def search():
+    form = SearchForm()
+    items = Item.query
+    if form.validate_on_submit():
+        Item.searched = form.searched.data
+        items = items.filter(Item.itemname.like('%'+ Item.searched + '%' ))
+        items = items.order_by(Item.id).all()
+        return render_template('search.html', form = form, searched = Item.searched, items = items)
+
 @login_required
 @myapp_obj.route('/profile', methods = ['GET', 'POST'])
 def profile():
@@ -72,6 +83,7 @@ def edit():
     form = EditingForm(request.form)
     return render_template('edit.html', form = form)
 
+
 @login_required
 @myapp_obj.route('/logout')
 def logout():
@@ -79,36 +91,37 @@ def logout():
     logout_user()
     return render_template('logout.html', form = form)
 
-@login_required
-@myapp_obj.route('/logout')
-def logout():
-	form = LogoutForm()
-	return render_template('logout.html', form = form)
-
 @myapp_obj.route('/items', methods=['GET', 'POST'])
 def addItem():
-    db.create_all()
     if request.method == "POST":
         if request.form["add_to_store"] == "Add to store":
-            newItem = Item(seller=request.form["seller"], itemname=request.form["item"], price=request.form["price"], 
-                            rating=0, numberofratings=0, sumofratings=0)
+            
+            pic = request.files["pic"]
+            filename = secure_filename(pic.filename)
+            mimetype = pic.mimetype
+
+            newItem = Item(seller=current_user.username, itemname=request.form["item"], price=request.form["price"], rating=0, numberofratings=0, sumofratings=0, img=pic.read(), mimetype=mimetype, name=filename)
             db.session.add(newItem)
             db.session.commit()
             return render_template('itemspage.html', items=Item.query.all()) 
+        
     return render_template('itemspage.html', items=Item.query.all())
 
 
-@myapp_obj.route('/cart/<string:item_name>') #Acquires name from the address bar
-def addToCart(item_name):
-    item = Item.query.filter_by(itemname=item_name).first()
-    cart_item = CartItem(seller=item.seller, price=item.price, itemname=item.itemname)
-    db.session.add(cart_item)
-    db.session.commit()
-    return render_template('cart.html', cart=CartItem.query.all())
+@myapp_obj.route('/items/<int:id>')
+def viewImage(id):
+    img = Item.query.filter_by(id=id).first()
+    return Response(img.img, mimetype=img.mimetype)
 
 
-@myapp_obj.route('/cart/')
+@myapp_obj.route('/cart/', methods=['GET', 'POST'])
 def cart():
+    if request.method == "POST":
+        if request.form["add_to_cart"] == "Add to cart":
+            item = Item.query.filter_by(id=request.form["item_id"]).first() #Retrieves first item with matching ID
+            cart_item = CartItem(seller=item.seller, price=item.price, itemname=item.itemname)
+            db.session.add(cart_item)
+            db.session.commit()
     return render_template('cart.html', cart=CartItem.query.all())
 
 
@@ -116,15 +129,22 @@ def cart():
 def rateItem():
     if request.method == "POST":
         if request.form["add_rating"] == "Add rating":
-            item = Item.query.filter_by(itemname=request.form["item"]).first() #Retrieves first item with matching name
+            item = Item.query.filter_by(id=request.form["item_id"]).first() #Retrieves first item with matching ID
             item.updateRating(int(request.form["rating"]))
+            review = Review(body=request.form["review"], username=current_user.username, item=item.itemname, rating=int(request.form["rating"]))
+            db.session.add(review)
             db.session.commit()
     return render_template('rate.html')
+
+@myapp_obj.route('/reviews/<int:id>')
+def itemReviews(id):
+    reviews = Item.query.filter_by(id=id).first().reviews
+    item = Item.query.filter_by(id=id).first()
+    return render_template('reviews.html', reviews=reviews, item=item)
 
 
 @myapp_obj.route('/checkout/', methods = ["GET", "POST"])
 def buyItems():
-    db.create_all()
     if request.method == "POST":
         if request.form["submit"] == "Buy":
 
@@ -136,13 +156,25 @@ def buyItems():
             db.session.add(info)
             db.session.commit()
 
-            return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = total_price)
-    
-    return render_template('shipping.html', buyInfo=CheckoutInfo.query.all(), items = Item.query.all(), total_price = (CartItem.query.with_entities(sql.func.sum(CartItem.price))).scalar())
+            for item in CartItem.query.all():
+                itemDelete = Item.query.filter_by(itemname = item.itemname).first()
 
+                for item_ in Item.query.all():
+                    if item_ == itemDelete:
+                        db.session.delete(item_)
+                        db.session.commit()
+
+                db.session.delete(item)
+                db.session.commit()
+                
+
+            return render_template('shipping.html', buyInfo=CheckoutInfo.query.filter_by(buyer = current_user.username), items = CartItem.query.all(), total_price = total_price)
+
+    return render_template('shipping.html', buyInfo=CheckoutInfo.query.filter_by(buyer = current_user.username), items = CartItem.query.all(), total_price = (CartItem.query.with_entities(sql.func.sum(CartItem.price))).scalar())
 
 @myapp_obj.route('/', methods = ["GET", "POST"])
 def splash_page():
+    db.create_all()
     if request.method == "POST":
         if request.form["submit"] == "Login":
             return redirect(url_for('Login'))
@@ -151,3 +183,18 @@ def splash_page():
             return redirect(url_for('Register'))
 
     return render_template('splash.html')
+
+@myapp_obj.route('/deleteItem', methods = ["GET", "POST"])
+def deleteItem():
+    if request.method == "POST":
+        if request.form["delete_item"] == "Delete":
+            item_to_delete = Item.query.filter_by(id = request.form["item_id"]).first()
+            db.session.delete(item_to_delete)
+            db.session.commit()
+
+            return render_template('deleteItem.html', item_list = Item.query.all())
+
+        elif request.form["back"] == "Back":
+            return redirect(url_for('Back'))
+        
+    return render_template('deleteItem.html', item_list = Item.query.all())

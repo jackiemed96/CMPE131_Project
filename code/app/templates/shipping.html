@@ -1,25 +1,71 @@
-<html>
-    <body>
-        <form action="#" method = "POST">
-            <h4> Cart Summary </h4>
-		    <ul>
-		    {% for item in items %}
-		        <li> {{item}} </li>
-		    {% endfor %}
-		    </ul>
-            Total: ${{total_price}}
-            
-            <p> Enter Address: </p>
-            <p> <input type = "text" name = "address"> </p>
-            <p> Enter Credit Card Information: </p>
-            <p> <input type = "number" name = "number"> </p>
-            <p> Purchase: <input type = submit name = "submit" value = "Buy"> </p>
-        </form>
+{% extends 'base.html' %}
 
-        <ul>
-        {% for info in buyInfo %}
-            <li> {{info}}</li>
-        {% endfor %}
-        </ul>
+    {% block body %}
+        <title> Checkout </title>
+        <form action = '#' method = "POST">
+            <div class = "text-center">
+                <br> <h4> Cart Summary </h4> 
+                <br>
+            </div>
+            <table class = "table">
+                <thead class = "table-dark">
+                    <tr>
+                        <th> Item ID </th>
+                        <th> Item Name </th>
+                        <th> Seller Name </th>
+                        <th> Price </th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <th scope = "row"> {{item.id}} </th>
+                            <td> {{item.itemname}} </td>
+                            <td> {{item.seller}} </td>
+                            <td> ${{item.price}} </td>
+                        </tr>
+		            {% endfor %}
+                </tbody>
+            </table>
+
+            <h5> Total Price: ${{total_price}} </h5>
+            <br>
+
+            <div class = "form-group">
+                <div class = "col-md-4">
+                    <label class = "form-label"> Enter Address </label>
+                    <input type = "text" class = "form-control" name = "address"> <br>
+                    <label class = "form-label"> Enter Credit Card Information </label>
+                    <input type = "number" class = "form-control" name = "number"> 
+                </div>
+            </div>
+            <br>
+
+            <label class = "form-label"> Purchase </label> 
+            <button type = "submit" class = "btn btn-outline-primary" name = "submit" value = "Buy"> Buy </button> <br>
+
+            <br>
+            <h5> Purchase Confirmation and History </h5>
+            <table class = "table table-success"> 
+                <thead class = "table-dark">
+                    <th> Purhcase ID </th>
+                    <th> Your Name </th>
+                    <th> Address </th>
+                </thead>
+
+                <tbody>
+                    {% for info in buyInfo %}
+                        <tr>
+                            <th scope = "row"> {{info.id}} </th>
+                            <td> {{info.buyer}} </td>
+                            <td> {{info.address}} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form> <br>
     </body>
-</html>
+    
+    {% endblock %}
