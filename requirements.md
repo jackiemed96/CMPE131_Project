@@ -24,16 +24,16 @@
 - **Primary Sequence:**
   
   1. Currently on their home page.
-  2. Pressing the profile editor, icon, or background button.
-  3. When in the editor write a short bio, in the icon space choose from a selection of icons, or in backgorund choose from a selection of backgrounds.
+  2. The user selects the button the make a not to themselves.
+  3. They will be taken to the editing page where they can overwirte the notes to themselves.
+  4. inorder to leave the page and save their notes the user must select the "Submit" button.
+  5. This will automatically take them back to their profile page and update the feild of notes they have made.
 
-- **Primary Postconditions:** The user is somewhere in the website (either the shopping viewr or any other page).
+- **Primary Postconditions:** The user tries to reload the page without saving or navigates away from the page.
 - **Alternate Sequence:** 
   
-  1. They are any place in the site whilst logged in.
-  2. Select drop down menue in the upper right to select profile.
-  3. Pressing the profile editor, icon, or background button.
-  4. When in the editor write a short bio, in the icon space choose from a selection of icons, or in backgorund choose from a selection of backgrounds.
+  1. Nothing the user had inputted whilst on the editing page without pressing submit does not save.
+  2. This means that all changes will be reverted back to the notes they had prior.
   
 2. Add item to seller store
 - **Pre-condition:**  User should be logged in and on the profile page. 
